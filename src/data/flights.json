@@ -1,0 +1,34 @@
+﻿[
+  {
+    "Id": 1,
+    "ToDepartureTime": "18:55",
+    "ToArrivalAirport": "Charles De Gaul Airport (CDG)",
+    "ToArrivalTime": "23:30",
+    "ToDepartureAirport": "Oslo Airport (OSL)",
+    "DepartureCity": "Oslo",
+    "FromDepartureTime": "20:15",
+    "FromArrivalTime": "08:04",
+    "ArrivalCity": "Paris",
+    "ToFlightTime": "2h 25'",
+    "FromflightTime": "12h 05'",
+    "AircompanyName": "Lufthansa",
+    "NumberOfStops": 1,
+    "Price": 737
+  },
+  {
+    "Id": 2,
+    "ToDepartureTime": "18:55",
+    "ToArrivalAirport": "Charles De Gaul Airport (CDG)",
+    "ToArrivalTime": "23:30",
+    "ToDepartureAirport": "Oslo Airport (OSL)",
+    "DepartureCity": "Oslo",
+    "FromDepartureTime": "20:15",
+    "FromArrivalTime": "08:04",
+    "ArrivalCity": "Paris",
+    "ToFlightTime": "2h 25'",
+    "FromflightTime": "12h 05'",
+    "AircompanyName": "Lufthansa",
+    "NumberOfStops": 1,
+    "Price": 737
+  }
+]
