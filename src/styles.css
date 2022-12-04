@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+
+.error-block {
+  color: red;
+  font-size: 12px;
+}
+
+.myShadow {
+  box-shadow: 0px 5px 10px 3px rgba(34, 60, 80, 0.2);
+}

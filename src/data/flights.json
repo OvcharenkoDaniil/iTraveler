@@ -8,12 +8,13 @@
     "DepartureCity": "Oslo",
     "FromDepartureTime": "20:15",
     "FromArrivalTime": "08:04",
-    "ArrivalCity": "Paris",
+    "ArrivalCity": "Minsk",
     "ToFlightTime": "2h 25'",
     "FromflightTime": "12h 05'",
     "AircompanyName": "Lufthansa",
     "NumberOfStops": 1,
-    "Price": 737
+    "Price": 737,
+    "FlightDuration": 200
   },
   {
     "Id": 2,
@@ -28,7 +29,25 @@
     "ToFlightTime": "2h 25'",
     "FromflightTime": "12h 05'",
     "AircompanyName": "Lufthansa",
-    "NumberOfStops": 1,
-    "Price": 737
+    "NumberOfStops": 2,
+    "Price": 621,
+    "FlightDuration": 300
+  },
+  {
+    "Id": 3,
+    "ToDepartureTime": "18:55",
+    "ToArrivalAirport": "Charles De Gaul Airport (CDG)",
+    "ToArrivalTime": "23:30",
+    "ToDepartureAirport": "Oslo Airport (OSL)",
+    "DepartureCity": "Oslo",
+    "FromDepartureTime": "20:15",
+    "FromArrivalTime": "08:04",
+    "ArrivalCity": "New York",
+    "ToFlightTime": "2h 25'",
+    "FromflightTime": "12h 05'",
+    "AircompanyName": "Lufthansa",
+    "NumberOfStops": 0,
+    "Price": 980,
+    "FlightDuration": 120
   }
 ]

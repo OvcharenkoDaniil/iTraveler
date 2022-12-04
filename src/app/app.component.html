@@ -1,5 +1,57 @@
-<app-nav-bar></app-nav-bar>
-<div class="container" style="margin-top: 70px;">
+<!--<app-nav-bar></app-nav-bar>-->
 
-  <app-flight-list></app-flight-list>
-</div>
+
+<router-outlet></router-outlet>
+
+<!--<div class="container" style="margin-top: 70px;">-->
+
+<!--  <div style="display: flex; flex-direction: row; gap: 6rem; justify-content: space-between">-->
+<!--    <app-filter></app-filter>-->
+
+<!--    <app-flight-list></app-flight-list>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<!--  <div class="container">-->
+<!--    <div class="row" >-->
+
+<!--      <div class="col">-->
+<!--        <input class="form-control " placeholder="Откуда">-->
+<!--      </div>-->
+<!--      <div class="col-auto ">-->
+<!--        <input type="text" class="form-control" placeholder="Куда">-->
+<!--      </div>-->
+<!--      <div class="col-auto align-items-center  justify-content-center ">-->
+<!--        <mat-form-field class="" appearance="fill">-->
+<!--          <mat-label>Дата вылета</mat-label>-->
+<!--          <input matInput [matDatepicker]="ToPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"-->
+<!--                 [(ngModel)]="selectedToMatDate">-->
+<!--          <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>-->
+<!--          <mat-datepicker #ToPicker></mat-datepicker>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+<!--      <div class="col-auto  align-items-center justify-content-center ">-->
+<!--        <mat-form-field class=" " appearance="fill">-->
+<!--          <mat-label>Дата возвращения</mat-label>-->
+<!--          <input matInput [matDatepicker]="FromPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"-->
+<!--                 [(ngModel)]="selectedFromMatDate">-->
+<!--          <mat-datepicker-toggle matSuffix [for]="FromPicker"></mat-datepicker-toggle>-->
+<!--          <mat-datepicker #FromPicker></mat-datepicker>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+<!--    <div class="col">-->
+<!--      <div class="btn-group">-->
+<!--        <button type="button" class="btn btn-default" data-toggle="dropdown">-->
+<!--Выпадающее меню-->
+<!--          <span class="caret"></span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col">6</div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
