@@ -1,0 +1,22 @@
+
+
+.inputElements{
+  background-color: white;
+  color: black;
+  padding-right: 1%;
+  padding-left: 1%;
+}
+
+.round-start{
+  border-radius:  10px 0 0 10px ;
+}
+.round-end{
+  border-radius: 0  10px 10px 0;
+}
+
+.findBtn{
+  font-size: 1.1em;
+  background-color: #4D6D08;
+color: white;
+
+}

@@ -1,0 +1,8 @@
+.home_slider_background{
+  background-image: linear-gradient(to right, rgba(53, 10, 78, 0.5),
+  rgba(53, 10, 78, 0.5)),url("src/assets/images/home_slider.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+

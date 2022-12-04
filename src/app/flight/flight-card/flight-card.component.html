@@ -1,0 +1,134 @@
+<div class=" ">
+  <div class="row py-3 px-1">
+    <div class="col-9">
+      <div class="row m-1">
+
+        <div class="row mb-5 ">
+          <div class="row">
+
+            <div class="row ">
+
+              <div class="col ">
+                <div class="row justify-content-start">
+                  <div class="col-auto  fw-bold pe-0">Departure</div>
+                  <div class="col-auto px-1 ">o</div>
+                  <div class="col-auto ps-0">{{ticket.FwAircompany_name}}</div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="row justify-content-end">
+                  <img class="col-auto px-0 align-self-center" height="20" src="assets/icons/suitcase.png"/>
+                  <div class="col-auto ps-2 ">Hand luggage</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row pt-3">
+            <img class="col-auto" height="25" src="assets/icons/lufthansa.ico"/>
+            <div class="col-auto">
+              <div class="row fw-bold">{{ticket.FwDepartureTime}}</div>
+              <div class="row pb-0  pb-0 pt-1">{{ticket.FwDepartureAirportName}}</div>
+              <div class="row pt-0  pb-0">{{ticket.FwDepartureCity}}</div>
+            </div>
+            <div class="col-auto">
+              <div class="row">
+
+                <div class="col-auto pe-1">{{ticket.FwFlightDuration}}</div>
+                <img class="col-auto px-2  align-self-center" height="22" src="assets/icons/plane.png"/>
+                <div class="col-auto px-1">{{ticket.FwNumberOfTransfers}}</div>
+                <div class="col-auto  ps-0">Stop</div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="row fw-bold">{{ticket.FwArrivalTime}}</div>
+              <div class="row pb-0  pb-0 pt-1">{{ticket.FwArrivalAirportName}}</div>
+              <div class="row pb-0">{{ticket.FwArrivalCity}}</div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div *ngIf="value()">
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="row">
+
+            <div class="row ">
+
+              <div class="col ">
+                <div class="row justify-content-start">
+                  <div class="col-auto fw-bold pe-0">Return</div>
+                  <div class="col-auto px-1 ">o</div>
+                  <div class="col-auto ps-0">{{ticket.BwAircompany_name}}</div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="row justify-content-end">
+                  <img class="col-auto px-0 align-self-center" height="20" src="assets/icons/suitcase.png"/>
+                  <div class="col-auto ps-2 ">Hand luggage</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row pt-2">
+            <img class="col-auto" height="25" src="assets/icons/lufthansa.ico"/>
+            <div class="col-auto">
+              <div class="row fw-bold">{{ticket.BwDepartureTime}}</div>
+              <div class="row pb-0  pb-0 pt-1">{{ticket.BwDepartureAirportName}}</div>
+              <div class="row pt-0  pb-0">{{ticket.BwDepartureCity}}</div>
+            </div>
+            <div class="col-auto">
+              <div class="row">
+
+                <div class="col-auto pe-1">{{ticket.BwFlightDuration}}</div>
+                <img class="col-auto px-2 align-self-center" height="22" src="assets/icons/plane.png"/>
+                <div class="col-auto px-1">{{ticket.BwNumberOfTransfers}}</div>
+                <div class="col-auto  ps-0">Stop</div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="row fw-bold">{{ticket.BwArrivalTime}}</div>
+              <div class="row pb-0  pb-0 pt-1">{{ticket.BwArrivalAirportName}}</div>
+              <div class="row pb-0">{{ticket.BwArrivalCity}}</div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div class="row mt-2">
+        <hr class="hr-shadow ">
+      </div>
+      <button class=" col-auto btn-settings">
+        Details
+        <img class="col-auto align-self-center px-0 " height=18 src="assets/icons/down_icon.png">
+      </button>
+
+
+    </div>
+
+    <div class="col-3 hr-dashed  ">
+
+      <div class="col  mx-0 m-4">
+        <div class="row justify-content-center mx-0 fs-3 fw-bold">
+          <div class="col-auto  px-0 "> $</div>
+          <div class="col-auto  px-1"> {{ticket.TotalPrice}}</div>
+        </div>
+        <div class="row justify-content-center mx-0 mt-2">
+          <div class="col-auto btn btn-primary fs-4 px-5  ">Select</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<!--<div class="accordion" id="accordionPanelsStayOpenExample">-->
+<!--  <div class="accordion-item">-->
+<!--    <h2 class="accordion-header" >-->
+<!--      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">-->
+<!--        <strong>Пересадки</strong>-->
+<!--      </button>-->
+<!--    </h2>-->
+<!--    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" >-->
+<!--      <div class="accordion-body">-->
+<!--        <div class="form-check">-->
+<!--          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">-->
+<!--          <label class="form-check-label" for="defaultCheck1">-->
+<!--            Без пересадок-->
+<!--          </label>-->
+<!--        </div>-->
+<!--        <div class="form-check">-->
+<!--          <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">-->
+<!--          <label class="form-check-label" for="defaultCheck2">-->
+<!--            1 пересадка-->
+<!--          </label>-->
+<!--        </div>-->
+<!--        <div class="form-check">-->
+<!--          <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">-->
+<!--          <label class="form-check-label" for="defaultCheck3">-->
+<!--            2+ пересадки-->
+<!--          </label>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="accordion-item">-->
+<!--    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">-->
+<!--      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">-->
+<!--        <strong>Время в пути</strong>-->
+<!--      </button>-->
+<!--    </h2>-->
+<!--    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">-->
+<!--      <div class="accordion-body">-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="accordion-item">-->
+<!--    <h2 class="accordion-header" id="panelsStayOpen-headingThree">-->
+<!--      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">-->
+<!--        Accordion Item #3-->
+<!--      </button>-->
+<!--    </h2>-->
+<!--    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">-->
+<!--      <div class="accordion-body">-->
+<!--        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<!--style="max-width: 20%;"-->
+<div class="myShadow">
+  <mat-accordion class="example-headers-align  " multi>
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Пересадки
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-checkbox color="primary">Без пересадок</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox color="primary">1 пересадка</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox color="primary">2+ пересадки</mat-checkbox>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Время в пути
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="d-flex  justify-content-between"   style="flex-direction: row;">
+        <div>Всего</div>
+        <div class="  d-flex " style="flex-direction: row;">
+          <div class="ps-1">До</div>
+          <div class="ps-1">{{sliderModel}}</div>
+          <div class="ps-1">ч.</div>
+        </div>
+      </div>
+
+      <mat-slider
+        thumbLabel
+        [displayWith]="formatLabel"
+        min="0"
+        max="24"
+        aria-label="units" [(ngModel)]="sliderModel" style="width: 100%;"></mat-slider>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Цена
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Авиакомпании
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Аэропорты
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
