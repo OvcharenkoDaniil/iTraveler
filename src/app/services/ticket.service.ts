@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
 import {Observable, BehaviorSubject, tap} from "rxjs";
 import {ISearchRequest} from "../model/iSearchRequest";
 import axios, {AxiosResponse} from "axios";
 import {ITicket} from "../model/ITicket";
 import {SignIn} from "../model/user";
 import {Token} from "../model/token";
-import {ACCESS_TOKEN_KEY, User} from "./auth.service";
+import {ACCESS_TOKEN_KEY, TICKETLIST, User} from "./auth.service";
 
 
 @Injectable({
@@ -20,12 +20,13 @@ export class TicketService {
   GET_All_TICKETS = "api/Ticket/GetTikets";
   // @ts-ignore
 
-  flights: BehaviorSubject<Array<IFlight>> = new BehaviorSubject<Array<IFlights>>();
 
+  tickets: BehaviorSubject<ITicket[]> = new BehaviorSubject<ITicket[]>();
+  tickets$: Observable<ITicket[]> = this.tickets.asObservable();
+  val:ITicket[];
   constructor(private http: HttpClient) {
   }
 
-  flights$: Observable<Array<ITicket>> = this.flights.asObservable();
 
   // 'data/flights.json'
   // this.BASE_URL + this.GET_All_TICKETS
@@ -65,47 +66,37 @@ export class TicketService {
   // }
 
 
-  // login(loginData: SignIn): Observable<Token> {
-  //   return this.http.post<Token>(this.BASE_URL + this.LOGIN, loginData).pipe(
-  //     tap(token => {
-  //       localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
-  //       var decode = this.jwtHelper.decodeToken(token.access_token);
-  //       this.user = decode;
-  //       localStorage.setItem(User, JSON.stringify(this.user));
-  //
-  //     })
-  //   )
-  // }
 
-  getFilteredTickets(filter: ISearchRequest): Observable<ITicket[]> {
-    //try {
-      //let res: ITicket[];
-      console.log("FILTER-------------");
-      console.log(JSON.stringify(filter));
-      // const response = this.http.get(this.BASE_URL + this.GET_FILTERED_TICKETS,{
-      //   params: new HttpParams().set('filter', filter)
-      // });
-      return this.http.post<ITicket[]>(this.BASE_URL + this.GET_FILTERED_TICKETS, JSON.stringify(filter)).pipe(
-        tap(data => {
-          console.log("response-------------");
-          console.log(data);
-          localStorage.setItem("Tickets", JSON.stringify(data));
-        })
-      )
-      console.log("-------------");
+  getFilteredTickets(filter: ISearchRequest) {
+    // console.log("FILTER-------------");
+    // console.log(filter);
+    return this.http.post<ITicket[]>(this.BASE_URL+this.GET_FILTERED_TICKETS,filter).pipe(
+      tap(result=>{
+        console.log("response-------------");
+        this.val = result;
+        console.log(this.val);
+        this.tickets$.pipe(take(1)).subscribe((data)=>{
+          console.log("PIPE-------------");
+          console.log(JSON.stringify(data));
+          this.tickets.next(this.val);
+        });
+        localStorage.removeItem(TICKETLIST);
+        localStorage.setItem(TICKETLIST,JSON.stringify(this.val));
+      })
+    )
+
       // const response = await axios.get(this.BASE_URL+this.GET_FILTERED_TICKETS, {
       //   params: {
       //     filter: JSON.stringify(filter)
       //   }
       // });
 
-    //} catch (error) {
-    //  console.error(error);
-    //}
   }
 
-  //return this.http.get<IFlights[]>(this.baseUrl + '/propertytype/list');
 
-
+  getTicket(number: number) {
+    var item = localStorage.getItem(TICKETLIST)
+    return
+  }
 }
 

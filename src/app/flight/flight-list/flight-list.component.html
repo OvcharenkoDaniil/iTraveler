@@ -15,8 +15,8 @@
 
 <!--| sort:[SortbyParam,SortDirection]-->
 <div class="row justify-content-end" >
-  <div *ngFor="let ticket of tickets"
+  <div *ngFor="let ticket of tickets$ | async"
        class="myShadow mb-3 rounded-3 " >
-    <app-flight-card [ticket]="ticket" ></app-flight-card>
+    <app-flight-card [ticket]="ticket"></app-flight-card>
   </div>
 </div>

@@ -41,6 +41,8 @@ import { AccountComponent } from './account/account.component';
 import {MatListModule} from "@angular/material/list";
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { FlightDetailComponent } from './flight/flight-detail/flight-detail.component';
+import {DetailResolverService} from "./flight/flight-detail/detail-resolver.service";
 
 
 export function tokenGetter(){
@@ -55,6 +57,9 @@ const appRoutes: Routes = [
   {path: 'main', component: MainDataComponent},
   {path: 'login', component: LoginComponent},
   {path: 'account', component: AccountComponent},
+  {path: 'detail/:id',
+    component: FlightDetailComponent,
+    resolve: {detailResolver: DetailResolverService}},
   {path: '**', component: MainDataComponent}
 
 ];
@@ -76,6 +81,7 @@ const appRoutes: Routes = [
      AccountComponent,
      NavBarComponent,
      StartPageComponent,
+     FlightDetailComponent,
 
   ],
 
@@ -116,6 +122,7 @@ const appRoutes: Routes = [
     AlertifyService,
     AuthService,
     UserService,
+    DetailResolverService,
     {provide: MAT_DATE_LOCALE, useValue:'ru-RU' }
   ],
   bootstrap: [AppComponent]

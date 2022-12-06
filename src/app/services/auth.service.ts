@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {Token} from "../model/token";
 
 export const ACCESS_TOKEN_KEY = "access_token"
+export const TICKETLIST = "ticket_list"
 export const User = "User"
 @Injectable({
   providedIn: 'root'

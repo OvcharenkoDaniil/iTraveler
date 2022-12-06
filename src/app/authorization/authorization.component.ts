@@ -97,6 +97,7 @@ export class AuthorizationComponent implements OnInit {
     this.authService.login(loginForm.value).subscribe(
       response => {
         this.alertify.success('Login Successful');
+
         //console.log(response);
         //alert(response + '    data')
         //const user = response;

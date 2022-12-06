@@ -9,7 +9,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
   templateUrl: './main-data.component.html',
   styleUrls: ['./main-data.component.css']
 })
-export class MainDataComponent {
+export class MainDataComponent implements OnInit {
 
 
   title = 'datePicker';
@@ -21,6 +21,9 @@ export class MainDataComponent {
   constructor(private router:Router, private jwtHelper:JwtHelperService) {
   }
 
+  ngOnInit(): void {
+    console.log("IN MAIN ");
+  }
   // isUserAuthenticated() {
   //   // @ts-ignore
   //   let token: string = localStorage.getItem("jwt");

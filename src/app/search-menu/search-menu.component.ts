@@ -3,6 +3,7 @@ import axios from "axios";
 import {ISearchRequest} from "../model/iSearchRequest";
 import {TicketService} from "../services/ticket.service";
 import {AlertifyService} from "../services/alertify.service";
+import {Router} from "@angular/router";
 
 interface Passanger {
   value: string;
@@ -25,9 +26,11 @@ export class SearchMenuComponent implements OnInit {
   selectedFromMatDate: Date;
   selectedReturnMatDate: Date;
   numberOfPassangers = '1';
+  flightClass = 'StandardClass';
 
   constructor(private ticketService: TicketService,
-              private alertify: AlertifyService) {
+              private alertify: AlertifyService,
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -42,25 +45,38 @@ export class SearchMenuComponent implements OnInit {
   async getFilteredTickets(from: HTMLInputElement, to: HTMLInputElement) {
     try {
 
-      const obj: ISearchRequest = {
-        DepartureCity: from.value,
-        ArrivalCity: to.value,
+      // const obj: ISearchRequest = {
+      //   DepartureCity: from.value,
+      //   ArrivalCity: to.value,
+      //   DepartureDate: this.selectedFromMatDate,
+      //   ReturnDate: this.selectedReturnMatDate,
+      //   NumberOfPassangers: +this.numberOfPassangers,
+      //   FlightClass:this.flightClass
+      // };
+      const obj2: ISearchRequest = {
+        DepartureCity: "AirportCity1",
+        ArrivalCity: "AirportCity2",
         DepartureDate: this.selectedFromMatDate,
-        ReturnDate: this.selectedReturnMatDate,
-        NumberOfPassangers: +this.numberOfPassangers
+        ReturnDate: this.selectedFromMatDate,
+        NumberOfPassangers: 2,
+        FlightClass:"FirstClass"
       };
       console.log("obj");
-      console.log(obj);
+      console.log(obj2);
 
-      this.ticketService.getFilteredTickets(obj).subscribe(
+      this.ticketService.getFilteredTickets(obj2)
+        .subscribe(
         response => {
-          this.alertify.success('Tickets received');
-
-
+          // this.alertify.success('Tickets received');
+          if (response!=null){
+            this.router.navigateByUrl("/main");
+          }
         }, error =>{
-          this.alertify.error('Tickets does not received');
+          // this.alertify.error('Tickets does not received');
         }
-      );
+      )
+      ;
+
       //this.searchRequest.emit(obj);
       // this.searchObj.DepartureCity = from.value;
       // this.searchObj.ArrivalCity = to.value;

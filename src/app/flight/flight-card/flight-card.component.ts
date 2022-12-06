@@ -10,9 +10,9 @@ export class FlightCardComponent {
   @Input() ticket: ITicket;
 
 
-  value() {
-    console.log("this.ticket")
-    console.log(this.ticket)
-
-  }
+  // value() {
+  //   console.log("this.ticket")
+  //   console.log(this.ticket)
+  //
+  // }
 }

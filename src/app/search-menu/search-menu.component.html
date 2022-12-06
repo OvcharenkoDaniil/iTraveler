@@ -46,10 +46,19 @@
       </mat-select>
     </mat-form-field>
   </div>
+    <div class="inputElements rounded-2">
+    <mat-form-field >
+      <mat-label>Класс</mat-label>
+      <mat-select [(value)]="flightClass">
+        <mat-option value="StandardClass">StandardClass</mat-option>
+        <mat-option value="FirstClass">FirstClass</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="col-1 bg-dark">
 
     <button (click)="getFilteredTickets(from,to)"  class="btn findBtn">Найти билеты</button>
+  </div>
   </div>
 
 </div>

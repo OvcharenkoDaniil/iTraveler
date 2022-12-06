@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {TicketService} from "../../services/ticket.service";
 
 import {ITicket} from "../../model/ITicket";
+import {TICKETLIST} from "../../services/auth.service";
+import {Observable} from "rxjs";
 @Component({
   selector: 'app-flight-list',
   templateUrl: './flight-list.component.html',
@@ -17,23 +19,31 @@ export class FlightListComponent implements OnInit {
   SortbyParam = '';
   SortDirection = 'asc';
 
-  tickets: ITicket[];
-  constructor(private ticketService: TicketService) { }
+  //tickets: ITicket[];
+  tickets$: Observable<ITicket[]>;
+  constructor(private ticketService: TicketService) {
+
+  }
 
   ngOnInit(): void {
-
-    this.ticketService.getAllTickets().subscribe(
-      data=>{
-        console.log("GETRESULT------------------------------------------------------");
-        this.tickets = data;
-        console.log("TICKETS------------------------------------------------------");
-        console.log(this.tickets);
-
-
-      },error => {
-        console.log(error);
-      }
-    );
+    console.log("IN FLIG LIST");
+    console.log(JSON.stringify(this.tickets$));
+    this.tickets$ = this.ticketService.tickets
+    // @ts-ignore
+    // var data = JSON.parse(localStorage.getItem(TICKETLIST));
+    // this.tickets = data;
+    // this.ticketService.getAllTickets().subscribe(
+    //   data=>{
+    //     console.log("GETRESULT------------------------------------------------------");
+    //     this.tickets = data;
+    //     console.log("TICKETS------------------------------------------------------");
+    //     console.log(this.tickets);
+    //
+    //
+    //   },error => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   // onCityFilter() {

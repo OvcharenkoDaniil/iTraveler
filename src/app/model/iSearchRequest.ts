@@ -4,4 +4,5 @@
   NumberOfPassangers: number;
   DepartureDate: Date;
   ReturnDate: Date;
+  FlightClass: string;
 }
