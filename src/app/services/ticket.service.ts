@@ -23,7 +23,9 @@ export class TicketService {
 
   tickets: BehaviorSubject<ITicket[]> = new BehaviorSubject<ITicket[]>();
   tickets$: Observable<ITicket[]> = this.tickets.asObservable();
-  val:ITicket[];
+  val: ITicket[];
+  element: ITicket;
+
   constructor(private http: HttpClient) {
   }
 
@@ -66,37 +68,45 @@ export class TicketService {
   // }
 
 
-
   getFilteredTickets(filter: ISearchRequest) {
     // console.log("FILTER-------------");
     // console.log(filter);
-    return this.http.post<ITicket[]>(this.BASE_URL+this.GET_FILTERED_TICKETS,filter).pipe(
-      tap(result=>{
+    return this.http.post<ITicket[]>(this.BASE_URL + this.GET_FILTERED_TICKETS, filter).pipe(
+      tap(result => {
         console.log("response-------------");
         this.val = result;
         console.log(this.val);
-        this.tickets$.pipe(take(1)).subscribe((data)=>{
+        this.tickets$.pipe(take(1)).subscribe((data) => {
           console.log("PIPE-------------");
           console.log(JSON.stringify(data));
           this.tickets.next(this.val);
         });
         localStorage.removeItem(TICKETLIST);
-        localStorage.setItem(TICKETLIST,JSON.stringify(this.val));
+        localStorage.setItem(TICKETLIST, JSON.stringify(this.val));
       })
     )
 
-      // const response = await axios.get(this.BASE_URL+this.GET_FILTERED_TICKETS, {
-      //   params: {
-      //     filter: JSON.stringify(filter)
-      //   }
-      // });
+    // const response = await axios.get(this.BASE_URL+this.GET_FILTERED_TICKETS, {
+    //   params: {
+    //     filter: JSON.stringify(filter)
+    //   }
+    // });
 
   }
 
 
-  getTicket(number: number) {
-    var item = localStorage.getItem(TICKETLIST)
-    return
+  getTicket(ticketId: number) {
+     this.tickets$.pipe(take(1)).subscribe((data) => {
+      for (let i = 0; i < data.length; i++) {
+        console.log("FOR")
+        if (data[i].ticketElem_id == ticketId) {
+          console.log("FIND_DATA")
+          this.element = data[i];
+          console.log(JSON.stringify(this.element))
+        }
+      }
+    });
+    return this.element;
   }
 }
 

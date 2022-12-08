@@ -18,11 +18,14 @@ export class DetailResolverService implements Resolve<ITicket> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<ITicket> | ITicket {
     const ticketId = route.params['id'];
-    return this.ticketService.getTicket(+ticketId).pipe(
-      catchError(error => {
-        this.router.navigate(['/']);
-        return of(null);
-      })
-    );
+    console.log("resolve get ticket")
+    return this.ticketService.getTicket(+ticketId)
+      // .pipe(
+      // catchError(error => {
+      //   this.router.navigate(['/']);
+      //   return of(null);
+      // })
+        //)
+      ;
   }
 }

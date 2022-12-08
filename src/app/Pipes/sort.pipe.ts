@@ -6,7 +6,7 @@ import {ITicket} from "../model/ITicket";
 })
 export class SortPipe implements PipeTransform {
 
-  transform(value: Array<ITicket>, args: any[]): any {
+  transform(value: ITicket[] | null, args: any[]): any {
     const sortField = args[0];
     const sortDirection = args[1];
     let multiplier = 1;
