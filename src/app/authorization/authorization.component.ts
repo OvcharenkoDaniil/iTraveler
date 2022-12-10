@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder, NgForm} from '@angular/forms';
-import {SignIn, UserForRegister} from 'src/app/model/user';
+import {IUser, RegisterVM, SignIn} from 'src/app/model/user';
 
 
 import {UserService} from "../services/user.service";
@@ -20,6 +20,7 @@ export class AuthorizationComponent implements OnInit {
   registrationForm: FormGroup;
   // @ts-ignore
   user: any = {};
+  User: RegisterVM;
 
 
   // @ts-ignore
@@ -64,12 +65,22 @@ export class AuthorizationComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  Register() {
     console.log(this.registrationForm.value);
     this.userSubmitted = true;
     if (this.registrationForm.valid) {
-      this.user = Object.assign(this.user, this.registrationForm.value);
-      this.userService.addUser(this.user);
+      //this.user = Object.assign(this.user, this.registrationForm.value);
+      this.authService.Register(this.userData()).subscribe(
+        response => {
+          // this.alertify.success('Tickets received');
+          if (response!=null){
+            console.log("Register executed")
+          }
+        }, error =>{
+          // this.alertify.error('Tickets does not received');
+        }
+      )
+      ;
       this.userSubmitted = false;
 
       this.alertify.success("You are successfully registrated");
@@ -91,7 +102,7 @@ export class AuthorizationComponent implements OnInit {
     return this.authService.isAuthenticated()
   }
 
-  onLogin(loginForm: NgForm) {
+  Login(loginForm: NgForm) {
 
     // const token = this.authService.authUser(loginForm.value);
     this.authService.login(loginForm.value).subscribe(
@@ -132,12 +143,11 @@ export class AuthorizationComponent implements OnInit {
   }
 
 
-  userData(): UserForRegister {
-    return this.user = {
+  userData(): RegisterVM {
+    return this.User = {
       userName: this.userName.value,
-      email: this.email.value,
-      password: this.password.value,
-      mobile: this.mobile.value
+      Email: this.email.value,
+      Password: this.password.value
     };
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IUser, SignIn, UserForRegister} from "../model/user";
+import {IUser, RegisterVM, SignIn} from "../model/user";
 import {Observable, tap} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {Router} from "@angular/router";
@@ -17,6 +17,7 @@ export class AuthService {
   BASE_URL = "https://localhost:7138/";
   //GET_FLIGHTS = "api/Flight";
   LOGIN = "api/auth/login";
+  REGISTER = "api/auth/register";
   user: IUser;
   //ACESS_TOKEN = "access_token";
 
@@ -25,7 +26,16 @@ export class AuthService {
     private jwtHelper:JwtHelperService,
     private router:Router
   ) { }
+  Register(registerData: RegisterVM) {
+        console.log("Register POST------------------------")
+    return this.http.post<Boolean>(this.BASE_URL+this.REGISTER,registerData).pipe(
+      tap(data=>{
+        console.log("Register POST------------------------")
+        console.log(data)
 
+      })
+    )
+  }
   login(loginData:SignIn):Observable<Token>{
     // console.log("loginData------------------------")
     // console.log(loginData)
@@ -56,6 +66,20 @@ export class AuthService {
     return token && !this.jwtHelper.isTokenExpired(token)
   }
 
+  isAdmin() {
+    if (this.isAuthenticated()) {
+      // @ts-ignore
+      var user = this.getUserData();
+      if (user.role=='Admin'){
+
+
+        return true;
+      }
+
+    }
+    return false;
+  }
+
   getUserData(){
     // @ts-ignore
     var user = JSON.parse(localStorage.getItem(User));
@@ -71,7 +95,5 @@ export class AuthService {
     //return this.http.post(this.baseUrl + '/account/login', user);
   }
 
-  registerUser(user: UserForRegister) {
-    //return this.http.post(this.baseUrl + '/account/register', user);
-  }
+
 }

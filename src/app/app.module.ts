@@ -43,6 +43,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { FlightDetailComponent } from './flight/flight-detail/flight-detail.component';
 import {DetailResolverService} from "./flight/flight-detail/detail-resolver.service";
+import {TabsModule} from "ngx-bootstrap/tabs";
 
 
 export function tokenGetter(){
@@ -115,7 +116,8 @@ const appRoutes: Routes = [
         disallowedRoutes: []
       }
     }),
-    MatListModule
+    MatListModule,
+    TabsModule
   ],
   providers: [
     TicketService,
