@@ -18,6 +18,7 @@ export class TicketService {
   BASE_URL = "https://localhost:7138/";
   GET_FILTERED_TICKETS = "api/Ticket/GetFilteredTickets";
   GET_All_TICKETS = "api/Ticket/GetTikets";
+  UPDATE_TICKET = "api/Ticket/UpdateTiket";
   // @ts-ignore
 
 
@@ -94,7 +95,16 @@ export class TicketService {
 
   }
 
-
+  UpdateTicket(ticket: ITicket) {
+    console.log("UpdateTicket PUT method")
+    return this.http.post<boolean>(this.BASE_URL+this.UPDATE_TICKET,ticket)
+      .pipe(
+      tap(data=>{
+        console.log("PUT result------------------------")
+        console.log(data)
+      })
+    )
+  }
   getTicket(ticketId: number) {
      this.tickets$.pipe(take(1)).subscribe((data) => {
       for (let i = 0; i < data.length; i++) {

@@ -2,6 +2,8 @@ export interface ITicket {
   ticketElem_id: number;
   numberOfPassengers: number;
   totalPrice: number;
+  fwPrice: number;
+  bwPrice: number;
 
   fwAircompany_name:string;
   fwArrivalAirportCountry: string;
