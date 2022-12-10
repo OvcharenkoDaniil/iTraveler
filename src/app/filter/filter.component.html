@@ -59,7 +59,7 @@
 <!--style="max-width: 20%;"-->
 <div class="myShadow">
   <mat-accordion class="example-headers-align  " multi>
-    <button (click)="filterParams()">DDDDDDDDDDDDDDDDDDDDDDDDDDDD</button>
+    <button (click)="filterParams()">filter data</button>
     <mat-expansion-panel expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -107,25 +107,33 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
+      <mat-form-field class="w-75" appearance="fill">
+        <mat-label>Min price</mat-label>
+        <input matInput [(ngModel)]="minPrice">
+      </mat-form-field>
+      <mat-form-field class="w-75" appearance="fill">
+        <mat-label>Max price</mat-label>
+        <input matInput [(ngModel)]="maxPrice">
+      </mat-form-field>
 
     </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Авиакомпании
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+<!--    <mat-expansion-panel>-->
+<!--      <mat-expansion-panel-header>-->
+<!--        <mat-panel-title>-->
+<!--          Авиакомпании-->
+<!--        </mat-panel-title>-->
+<!--      </mat-expansion-panel-header>-->
 
 
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Аэропорты
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+<!--    </mat-expansion-panel>-->
+<!--    <mat-expansion-panel>-->
+<!--      <mat-expansion-panel-header>-->
+<!--        <mat-panel-title>-->
+<!--          Аэропорты-->
+<!--        </mat-panel-title>-->
+<!--      </mat-expansion-panel-header>-->
 
 
-    </mat-expansion-panel>
+<!--    </mat-expansion-panel>-->
   </mat-accordion>
 </div>

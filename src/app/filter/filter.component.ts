@@ -17,6 +17,8 @@ export class FilterComponent  {
   noTransfer= false;
   oneTransfer= false;
   twoTransfers= false;
+  minPrice: number;
+  maxPrice: number;
 
 
   constructor(
@@ -30,6 +32,8 @@ export class FilterComponent  {
   }
 
   filterParams() {
+
+    //ADD PRICE
     var filterObj = new IFilter();
     filterObj.sliderValue=this.sliderModel;
     filterObj.noTransfer=this.noTransfer;

@@ -15,7 +15,7 @@ export class FilterService {
 
   filter(filter:IFilter){
     this.filterObj$.pipe(take(1)).subscribe((data) => {
-      console.log("FILTER DATA")
+      console.log("FilterService DATA")
       console.log(JSON.stringify(filter))
       this.filterObj.next(filter);
     });
