@@ -20,18 +20,18 @@ export class UserService{
   ) {
   }
   // @ts-ignore
-  addUser(user) {
-    let users = [];
-    if (localStorage.getItem('Users')) {
-      // @ts-ignore
-      users = JSON.parse(localStorage.getItem('Users'));
-      users = [user, ...users];
-    }
-    else {
-      users = [user];
-    }
-    localStorage.setItem('Users',JSON.stringify(users));
-  }
+  // addUser(user) {
+  //   let users = [];
+  //   if (localStorage.getItem('Users')) {
+  //     // @ts-ignore
+  //     users = JSON.parse(localStorage.getItem('Users'));
+  //     users = [user, ...users];
+  //   }
+  //   else {
+  //     users = [user];
+  //   }
+  //   localStorage.setItem('Users',JSON.stringify(users));
+  // }
 
 
   changePassword(password: string) {
@@ -51,4 +51,6 @@ export class UserService{
       })
     )
   }
+
+
 }

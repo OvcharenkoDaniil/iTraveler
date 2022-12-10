@@ -15,7 +15,8 @@
 
 <!--| sort:[SortbyParam,SortDirection]-->
 <div class="row justify-content-end" >
-  <div *ngFor="let ticket of tickets$ | async |sort:[SortbyParam,SortDirection] |filter:[SortFilter]"
+<!--  |filter:filter$-->
+  <div *ngFor="let ticket of tickets$ | async |sort:[SortbyParam,SortDirection]"
        class="myShadow mb-3 rounded-3 " >
     <app-flight-card [ticket]="ticket"></app-flight-card>
   </div>

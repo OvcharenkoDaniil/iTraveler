@@ -108,10 +108,13 @@
       <div class="row mt-2">
         <hr class="hr-shadow ">
       </div>
-      <button class=" col-auto btn-settings" routerLink="/detail/{{ticket.ticketElem_id}}">
-        Details
+      <button class=" col-auto btn-settings" *ngIf="!isAdmin()" routerLink="/detail/{{ticket.ticketElem_id}}">
+        Подробнее
         <img class="col-auto align-self-center px-0 " height=18 src="assets/icons/down_icon.png">
       </button>
+      <div class="btn  col-auto btn-primary" *ngIf="isAdmin()" routerLink="/detail/{{ticket.ticketElem_id}}">
+        Изменить
+      </div>
 
 
     </div>

@@ -1,15 +1,8 @@
-export interface UserForRegister {
-    userName: string;
-    email?: string;
-    password: string;
-    mobile?: number;
-}
 
-export interface Register {
+export interface RegisterVM {
   userName: string;
-  email: string;
-  password: string;
-  mobile: number;
+  Email: string;
+  Password: string;
 }
 
 export interface SignIn {
@@ -17,6 +10,7 @@ export interface SignIn {
   email:string;
   password: string;
 }
+
 export interface IUser {
   name: string;
   email:string;

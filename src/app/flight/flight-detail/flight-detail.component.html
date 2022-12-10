@@ -1,2 +1,240 @@
-<p>{{id}}</p>
-<!--<button class="btn btn-primary">Back</button>-->
+<div>
+  <div>
+
+    <app-nav-bar></app-nav-bar>
+  </div>
+
+  <div class="container pt-3">
+
+    <div class="row shadow">
+
+      <div class=" p-0">
+        <div class="tab-panel p-3">
+          <tabset class="member-tabset">
+            <tab heading="Отправление">
+              <h1>Отправление</h1>
+              <div class="row" *ngIf="!isAdmin()">
+                <div class="col-sm-6">
+                  <h2>Отправление</h2>
+                  <div class="heading">
+                    <strong>Страна </strong>
+                    <input type="text" class="form-control"  [readOnly]="read"
+                           value="{{ticket.fwDepartureAirportCountry}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Аэропорт </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwDepartureAirportName}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Город </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwDepartureCity}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwDepartureDate}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" [(ngModel)]="ticket.fwDepartureTime" [readOnly]="read"
+                           >
+                  </div>
+
+                </div>
+                <div class="col-sm-6">
+
+                  <h2>Прибытие</h2>
+
+                  <div class="heading">
+                    <strong>Страна </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalAirportCountry}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Аэропорт </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalAirportName}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Город </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalCity}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalDate}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalTime}}">
+                  </div>
+
+                </div>
+                <div class="mt-4">
+                  <div class="heading">
+                    <strong>Название авиакомпании</strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwAircompany_name}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Длительность полёта </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwFlightDuration}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Количество пересадок</strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwNumberOfTransfers}}">
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="row" *ngIf="isAdmin()">
+                <div class="col-sm-6">
+                  <h2>Отправление</h2>
+
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" name="" [readOnly]="read"
+                           value="{{ticket.fwDepartureDate}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" name="" [readOnly]="read"
+                           value="{{ticket.fwArrivalTime}}">
+                  </div>
+
+                  <div class="heading">
+                    <strong>Цена</strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwPrice}}">
+                  </div>
+
+                  <div class="heading">
+                    <strong>Количество пересадок</strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwNumberOfTransfers}}">
+                  </div>
+
+                </div>
+                <div class="col-sm-6">
+
+                  <h2>Прибытие</h2>
+
+
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalDate}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.fwArrivalTime}}">
+                  </div>
+
+                </div>
+
+
+              </div>
+            </tab>
+            <tab heading="Возвращение">
+              <h1>Возвращение</h1>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h2>Отправление</h2>
+                  <div class="heading">
+                    <strong>Страна </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwDepartureAirportCountry}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Аэропорт </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwDepartureAirportName}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Город </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwDepartureCity}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwDepartureDate}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwDepartureTime}}">
+                  </div>
+
+                </div>
+                <div class="col-sm-6">
+
+                  <h2>Прибытие</h2>
+
+                  <div class="heading">
+                    <strong>Страна </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwArrivalAirportCountry}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Аэропорт </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwArrivalAirportName}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Город </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwArrivalCity}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwArrivalDate}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwArrivalTime}}">
+                  </div>
+
+                </div>
+                <div class="mt-4">
+                  <div class="heading">
+                    <strong>Название авиакомпании</strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwAircompany_name}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Длительность полёта </strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwFlightDuration}}">
+                  </div>
+                  <div class="heading">
+                    <strong>Количество пересадок</strong>
+                    <input type="text" class="form-control" [readOnly]="read"
+                           value="{{ticket.bwNumberOfTransfers}}">
+                  </div>
+                </div>
+
+
+              </div>
+            </tab>
+            <div class="btn btn-primary" *ngIf="isAdmin()" (click)="SaveChanges()">
+              Сохранить изменения
+            </div>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

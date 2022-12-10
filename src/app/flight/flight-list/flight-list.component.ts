@@ -6,6 +6,7 @@ import {TICKETLIST} from "../../services/auth.service";
 import {Observable} from "rxjs";
 import {IFilter} from "../../model/IFilter";
 import {FilterService} from "../../services/filter.service";
+import {take} from "rxjs/operators";
 @Component({
   selector: 'app-flight-list',
   templateUrl: './flight-list.component.html',
@@ -37,6 +38,7 @@ export class FlightListComponent implements OnInit {
     console.log(JSON.stringify(this.tickets$));
     this.tickets$ = this.ticketService.tickets
     this.filter$ = this.filterService.filterObj
+
     // @ts-ignore
     // var data = JSON.parse(localStorage.getItem(TICKETLIST));
     // this.tickets = data;
@@ -70,5 +72,6 @@ export class FlightListComponent implements OnInit {
       this.SortDirection = 'desc';
     }
   }
+
 
 }
