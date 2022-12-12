@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import axios from "axios";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthorizationComponent} from "../authorization/authorization.component";
@@ -13,6 +13,8 @@ import {AuthService} from "../services/auth.service";
   styleUrls: ['./search-nav-bar.component.css']
 })
 export class SearchNavBarComponent implements OnInit {
+
+  @Input() showSearchMenu: boolean;
 
   // @ts-ignore
   loggedinUser: string;
@@ -32,6 +34,7 @@ export class SearchNavBarComponent implements OnInit {
 
   logOut(){
     this.authService.logout();
+
   }
 
   loggedIn(){

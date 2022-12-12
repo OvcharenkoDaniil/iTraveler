@@ -1,24 +1,24 @@
 
 <div >
 <div class=""  style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
-  <div class="col  "   style="display: flex; flex-direction: row; align-items: center;  gap: 1rem;  ">
+  <div class="col  "   style="display: flex; flex-direction: row; align-items: center;  gap: 0.5rem;  ">
 
-    <div class="inputElements rounded-2">
-    <mat-form-field   class="">
+    <div class=" inputElements rounded-2">
+    <mat-form-field   class="from">
       <mat-label>Откуда</mat-label>
       <input matInput #from>
     </mat-form-field>
     </div>
 
-    <div class="inputElements rounded-2">
-    <mat-form-field  class="">
+    <div class=" inputElements rounded-2">
+    <mat-form-field  class="to">
       <mat-label>Куда</mat-label>
       <input matInput #to>
     </mat-form-field>
     </div>
 
-  <div class="inputElements rounded-2">
-      <mat-form-field  class=" ">
+  <div class=" inputElements rounded-2">
+      <mat-form-field  class="ToPicker ">
         <mat-label>Дата вылета</mat-label>
         <input matInput [matDatepicker]="ToPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
                [(ngModel)]="selectedFromMatDate">
@@ -26,8 +26,8 @@
         <mat-datepicker #ToPicker></mat-datepicker>
       </mat-form-field>
   </div>
-  <div class="inputElements rounded-2">
-    <mat-form-field >
+  <div class=" inputElements rounded-2">
+    <mat-form-field class="FromPicker">
       <mat-label>Дата возвращения</mat-label>
 
       <input matInput [matDatepicker]="FromPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
@@ -36,8 +36,8 @@
       <mat-datepicker #FromPicker></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="inputElements rounded-2">
-    <mat-form-field >
+  <div class=" inputElements rounded-2">
+    <mat-form-field class="numberOfPassangers">
       <mat-label>Количество пасажиров</mat-label>
       <mat-select [(value)]="numberOfPassangers">
         <mat-option value="1">1</mat-option>
@@ -46,8 +46,8 @@
       </mat-select>
     </mat-form-field>
   </div>
-    <div class="inputElements rounded-2">
-    <mat-form-field >
+    <div class=" inputElements rounded-2">
+    <mat-form-field class="flightClass">
       <mat-label>Класс</mat-label>
       <mat-select [(value)]="flightClass">
         <mat-option value="StandardClass">StandardClass</mat-option>
@@ -55,10 +55,9 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="col-1 bg-dark">
-
-    <button (click)="getFilteredTickets(from,to)"  class="btn findBtn">Найти билеты</button>
   </div>
+  <div class="pt-0 " style="">
+    <button (click)="getFilteredTickets(from,to)"  class="btn OnBtn findBtn p-3">Найти билеты</button>
   </div>
 
 </div>

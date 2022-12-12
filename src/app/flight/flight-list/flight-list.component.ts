@@ -22,7 +22,7 @@ export class FlightListComponent implements OnInit {
   SortbyParam = '';
   SortDirection = 'asc';
   SortFilter = '';
-
+  mode: string = "ticket";
   //tickets: ITicket[];
   tickets$: Observable<ITicket[]>;
   filter$: Observable<IFilter>;
@@ -64,6 +64,7 @@ export class FlightListComponent implements OnInit {
   //   this.SearchCity = '';
   //   this.City = '';
   // }
+
 
   onSortDirection() {
     if (this.SortDirection === 'desc') {

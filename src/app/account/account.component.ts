@@ -4,6 +4,9 @@ import {IUser} from "../model/user";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {AlertifyService} from "../services/alertify.service";
+import {Observable} from "rxjs";
+import {ITicket} from "../model/ITicket";
+import {OrderService} from "../services/order.service";
 
 @Component({
   selector: 'app-account',
@@ -17,14 +20,29 @@ export class AccountComponent implements OnInit {
   user:IUser;
   changePasswordForm: FormGroup;
   userSubmitted:boolean;
+
+  orders$: Observable<ITicket[]>;
+  mode: string = "order";
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private userService: UserService,
+    private orderService: OrderService,
     private alertify: AlertifyService) { }
 
   ngOnInit(): void {
     this.createChangePasswordForm();
+    this.orderService.getOrders().subscribe(
+      response => {
+        console.log("response orderService.GetOrders ")
+        console.log(response)
+      }, error => {
+        //this.alertify.error('Order does not get');
+      }
+    );
+    this.orders$ = this.orderService.orders
+
   }
   createChangePasswordForm() {
     this.changePasswordForm = this.fb.group({

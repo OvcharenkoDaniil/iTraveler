@@ -108,7 +108,7 @@
       <div class="row mt-2">
         <hr class="hr-shadow ">
       </div>
-      <button class=" col-auto btn-settings" *ngIf="!isAdmin()" routerLink="/detail/{{ticket.ticketElem_id}}">
+      <button class=" col-auto btn-settings" *ngIf="!isAdmin()&& isTicket()" routerLink="/detail/{{ticket.ticketElem_id}}">
         Подробнее
         <img class="col-auto align-self-center px-0 " height=18 src="assets/icons/down_icon.png">
       </button>
@@ -126,8 +126,11 @@
           <div class="col-auto  px-0 "> $</div>
           <div class="col-auto  px-1"> {{ticket.totalPrice}}</div>
         </div>
-        <div class="row justify-content-center mx-0 mt-2">
-          <div class="col-auto btn btn-primary fs-4 px-5  ">Select</div>
+        <div class="row justify-content-center mx-0 mt-4" *ngIf="isTicket()&&!isAdmin()" (click)="AddOrder()">
+          <div class="col-auto btn btn-primary  ">Забронировать</div>
+        </div>
+        <div class="row justify-content-center mx-0 mt-4" *ngIf="isOrder()">
+          <div class="col-auto btn btn-danger ">Отменить бронирование</div>
         </div>
       </div>
     </div>

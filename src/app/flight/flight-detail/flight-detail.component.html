@@ -38,7 +38,7 @@
                   </div>
                   <div class="heading">
                     <strong>Время отправления </strong>
-                    <input type="text" class="form-control" [(ngModel)]="ticket.fwDepartureTime" [readOnly]="read"
+                    <input type="text" class="form-control" value="{{ticket.fwDepartureTime}}" [readOnly]="read"
                            >
                   </div>
 
@@ -95,58 +95,60 @@
               </div>
 
 
-              <div class="row" *ngIf="isAdmin()">
+
+
+
+
+
+              <form class="row" #changeFwFlightForm='ngForm' (ngSubmit)="ChangeFwFlight(changeFwFlightForm)" *ngIf="isAdmin()">
                 <div class="col-sm-6">
                   <h2>Отправление</h2>
-
                   <div class="heading">
                     <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" name="" [readOnly]="read"
-                           value="{{ticket.fwDepartureDate}}">
+                    <input type="text" name="fwDepartureDate" class="form-control" [readOnly]="read"
+                           [(ngModel)]="ticket.fwDepartureDate">
                   </div>
                   <div class="heading">
                     <strong>Время отправления </strong>
-                    <input type="text" class="form-control" name="" [readOnly]="read"
-                           value="{{ticket.fwArrivalTime}}">
-                  </div>
-
-                  <div class="heading">
-                    <strong>Цена</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwPrice}}">
-                  </div>
-
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwNumberOfTransfers}}">
+                    <input type="text" name="fwDepartureTime" class="form-control" [(ngModel)]="ticket.fwDepartureTime" [readOnly]="read"
+                    >
                   </div>
 
                 </div>
                 <div class="col-sm-6">
-
                   <h2>Прибытие</h2>
-
-
                   <div class="heading">
                     <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalDate}}">
+                    <input type="text" name="fwArrivalDate" class="form-control" [readOnly]="read"
+                           [(ngModel)]="ticket.fwArrivalDate">
                   </div>
                   <div class="heading">
                     <strong>Время отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalTime}}">
+                    <input type="text" name="fwArrivalTime" class="form-control" [readOnly]="read"
+                           [(ngModel)]="ticket.fwArrivalTime">
                   </div>
-
                 </div>
+                <div class="mt-4">
 
-
-              </div>
+                  <div class="heading">
+                    <strong>Цена </strong>
+                    <input type="text" class="form-control" name="fwPrice" [readOnly]="read" [(ngModel)]="ticket.fwPrice"
+                           >
+                  </div>
+                  <div class="heading">
+                    <strong>Количество пересадок</strong>
+                    <input type="text" class="form-control" name="fwNumberOfTransfers" [readOnly]="read"
+                           [(ngModel)]="ticket.fwNumberOfTransfers">
+                  </div>
+                </div>
+                <button  mat-raised-button color="primary" class="mt-4" type="submit" >
+                  Сохранить изменения
+                </button>
+              </form>
             </tab>
             <tab heading="Возвращение">
               <h1>Возвращение</h1>
-              <div class="row">
+              <div class="row "*ngIf="!isAdmin()">
                 <div class="col-sm-6">
                   <h2>Отправление</h2>
                   <div class="heading">
@@ -227,10 +229,68 @@
 
 
               </div>
+
+
+
+
+
+
+
+
+
+              <form class="row" #changeBwFlightForm='ngForm' (ngSubmit)="ChangeBwFlight(changeBwFlightForm)" *ngIf="isAdmin()">
+                <div class="col-sm-6">
+                  <h2>Отправление</h2>
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" name="bwDepartureDate" [readOnly]="read"
+                           [(ngModel)]="ticket.bwDepartureDate ">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" name="bwDepartureTime"
+                           [(ngModel)]="ticket.bwDepartureTime " [readOnly]="read"
+                    >
+                  </div>
+
+                </div>
+                <div class="col-sm-6">
+                  <h2>Прибытие</h2>
+                  <div class="heading">
+                    <strong>Дата отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read" name="bwArrivalDate"
+                           [(ngModel)]="ticket.bwArrivalDate ">
+                  </div>
+                  <div class="heading">
+                    <strong>Время отправления </strong>
+                    <input type="text" class="form-control" [readOnly]="read" name="bwArrivalTime"
+                           [(ngModel)]="ticket.bwArrivalTime ">
+                  </div>
+                </div>
+                <div class="mt-4">
+
+                  <div class="heading">
+                    <strong>Цена </strong>
+                    <input type="text" class="form-control" [readOnly]="read" name="bwPrice"
+                           [(ngModel)]="ticket.bwPrice ">
+                  </div>
+                  <div class="heading">
+                    <strong>Количество пересадок</strong>
+                    <input type="text" class="form-control" [readOnly]="read" name="bwNumberOfTransfers"
+                           [(ngModel)]="ticket.bwNumberOfTransfers ">
+                  </div>
+                </div>
+                <button  class="mt-4" mat-raised-button color="primary" type="submit" >
+                  Сохранить изменения
+                </button>
+<!--                <div class="btn btn-primary" *ngIf="isAdmin()" (click)="SaveChanges()">-->
+<!--                  Сохранить изменения-->
+<!--                </div>-->
+              </form>
             </tab>
-            <div class="btn btn-primary" *ngIf="isAdmin()" (click)="SaveChanges()">
-              Сохранить изменения
-            </div>
+<!--            <div class="btn btn-primary"  *ngIf="!isAdmin()" (click)="AddOrder()">-->
+<!--              Забронировать-->
+<!--            </div>-->
           </tabset>
         </div>
       </div>

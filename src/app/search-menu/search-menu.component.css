@@ -6,6 +6,28 @@
   padding-right: 1%;
   padding-left: 1%;
 }
+.from{
+  max-width: 160px;
+}
+
+.to{
+  max-width: 160px;
+}
+.ToPicker{
+  max-width: 160px;
+}
+.FromPicker{
+  max-width: 160px;
+}
+.numberOfPassangers{
+  max-width: 160px;
+}
+.flightClass{
+  max-width: 160px;
+}
+.OnBtn:hover{
+  background-color: #364907;
+}
 
 .round-start{
   border-radius:  10px 0 0 10px ;
@@ -17,6 +39,6 @@
 .findBtn{
   font-size: 1.1em;
   background-color: #4D6D08;
-color: white;
+  color: white;
 
 }

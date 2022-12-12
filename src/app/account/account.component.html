@@ -3,55 +3,62 @@
 <div class="container " style="margin-top: 2rem; ">
   <!--  *ngIf="isLoggedIn"-->
   <div style="display: flex; flex-direction: row;  justify-content: space-between">
-    <div class="col-2  myShadow">
+    <div class="col-2  myShadow" style="max-height: 100px;">
       <mat-action-list>
         <button mat-list-item>Profile</button>
-        <button mat-list-item>Settings</button>
+        <button mat-list-item>My orders</button>
       </mat-action-list>
     </div>
 
     <div class="col-7 " *ngIf="loggedIn()">
 
       <mat-card>
+<!--        <mat-list>-->
+<!--          <mat-list-item class="fw-bold">Profile</mat-list-item>-->
+<!--          <mat-list-item>User: {{user.name}}</mat-list-item>-->
+<!--          <mat-list-item>Email: {{user.email}}</mat-list-item>-->
+
+
+<!--            <mat-list-item class="fw-bold mt-3">Change Password</mat-list-item>-->
+<!--          <mat-list-item class="mt-2" >-->
+<!--            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">-->
+<!--              <mat-form-field>-->
+<!--                <input matInput placeholder="Password" type="password" formControlName="password">-->
+<!--                <mat-error-->
+<!--                  *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['required']">-->
+<!--                  Please provide password-->
+<!--                </mat-error>-->
+<!--                <mat-error-->
+<!--                  *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['minlength']">-->
+<!--                  Password should not be lesser than 6 character-->
+<!--                </mat-error>-->
+<!--                <mat-icon matSuffix>lock</mat-icon>-->
+
+<!--              </mat-form-field>-->
+<!--              <mat-form-field>-->
+<!--                <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">-->
+<!--                <mat-error-->
+<!--                  *ngIf="!confirmPassword.valid && (confirmPassword.touched || userSubmitted) && confirmPassword.hasError('required')">-->
+<!--                  Please confirm password-->
+<!--                </mat-error>-->
+<!--                <mat-icon matSuffix>lock</mat-icon>-->
+
+<!--                <span *ngIf="changePasswordForm.hasError('notmatched') && confirmPassword.valid" class="error-block">-->
+<!--              Password not matched-->
+<!--            </span>-->
+<!--              </mat-form-field>-->
+<!--              <button mat-raised-button color="primary" type="submit" >-->
+<!--                Change password-->
+<!--              </button>-->
+<!--            </form>-->
+<!--          </mat-list-item>-->
+<!--        </mat-list>-->
+
         <mat-list>
-          <mat-list-item class="fw-bold">Profile</mat-list-item>
-          <mat-list-item>User: {{user.name}}</mat-list-item>
-          <mat-list-item>Email: {{user.email}}</mat-list-item>
-
-
-            <mat-list-item class="fw-bold mt-3">Change Password</mat-list-item>
-          <mat-list-item class="mt-2" >
-            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-              <mat-form-field>
-                <input matInput placeholder="Password" type="password" formControlName="password">
-                <mat-error
-                  *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['required']">
-                  Please provide password
-                </mat-error>
-                <mat-error
-                  *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['minlength']">
-                  Password should not be lesser than 6 character
-                </mat-error>
-                <mat-icon matSuffix>lock</mat-icon>
-
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
-                <mat-error
-                  *ngIf="!confirmPassword.valid && (confirmPassword.touched || userSubmitted) && confirmPassword.hasError('required')">
-                  Please confirm password
-                </mat-error>
-                <mat-icon matSuffix>lock</mat-icon>
-
-                <span *ngIf="changePasswordForm.hasError('notmatched') && confirmPassword.valid" class="error-block">
-              Password not matched
-            </span>
-              </mat-form-field>
-              <button mat-raised-button color="primary" type="submit" >
-                Change password
-              </button>
-            </form>
-          </mat-list-item>
+          <div *ngFor="let order of orders$ | async"
+               class="myShadow mb-3 rounded-3 " >
+            <app-flight-card [mode]="mode" [ticket]="order"></app-flight-card>
+          </div>
         </mat-list>
       </mat-card>
 

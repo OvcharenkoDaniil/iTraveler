@@ -33,7 +33,7 @@
       </div>
 
       <div *ngIf="!loggedIn()" >
-        <button mat-button (click)="openDialog()" class="findBtn" >Войти</button>
+        <button mat-button (click)="openDialog()" class="findBtn OnBtn" >Войти</button>
       </div>
 
 
@@ -48,8 +48,8 @@
         </div>
       </div>
     </div>
-    <div class="my-3">
-      <app-search-menu></app-search-menu>
+    <div class="my-3" *ngIf="showSearchMenu">
+      <app-search-menu ></app-search-menu>
     </div>
   </div>
 

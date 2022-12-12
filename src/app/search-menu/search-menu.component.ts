@@ -74,8 +74,7 @@ export class SearchMenuComponent implements OnInit {
         }, error =>{
           // this.alertify.error('Tickets does not received');
         }
-      )
-      ;
+      );
 
       //this.searchRequest.emit(obj);
       // this.searchObj.DepartureCity = from.value;

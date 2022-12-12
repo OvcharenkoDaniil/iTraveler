@@ -8,6 +8,7 @@ import {Token} from "../model/token";
 
 export const ACCESS_TOKEN_KEY = "access_token"
 export const TICKETLIST = "ticket_list"
+export const FILTER = "filter"
 export const User = "User"
 @Injectable({
   providedIn: 'root'
@@ -71,7 +72,7 @@ export class AuthService {
       // @ts-ignore
       var user = this.getUserData();
       if (user.role=='Admin'){
-
+        //console.log("auth service isAdmin ----------")
 
         return true;
       }
@@ -88,12 +89,14 @@ export class AuthService {
 
   logout():void{
     localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(User);
     this.router.navigate(['']);
   }
 
   authUser(user: SignIn) {
     //return this.http.post(this.baseUrl + '/account/login', user);
   }
+
 
 
 }

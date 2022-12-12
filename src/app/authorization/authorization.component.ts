@@ -113,7 +113,7 @@ export class AuthorizationComponent implements OnInit {
         //alert(response + '    data')
         //const user = response;
         this.dialog.closeAll();
-
+        //this.router.navigate(['/main']);
       }, error =>{
         this.alertify.error('User does not exist');
         });
