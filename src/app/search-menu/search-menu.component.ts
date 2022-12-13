@@ -27,6 +27,9 @@ export class SearchMenuComponent implements OnInit {
   selectedReturnMatDate: Date;
   numberOfPassangers = '1';
   flightClass = 'StandardClass';
+  fromInput: any;
+  toInput: any;
+
 
   constructor(private ticketService: TicketService,
               private alertify: AlertifyService,
@@ -34,6 +37,17 @@ export class SearchMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("filter in main");
+    var filter = this.ticketService.getFilterData();
+    console.log(filter);
+    if (filter!= null){
+      this.fromInput = filter.DepartureCity;
+      this.toInput = filter.ArrivalCity;
+      this.selectedFromMatDate= filter.DepartureDate;
+      this.selectedReturnMatDate= filter.ReturnDate;
+      this.numberOfPassangers= filter.NumberOfPassangers.toString();
+      this.flightClass= filter.FlightClass;
+    }
   }
 
 
@@ -95,6 +109,7 @@ export class SearchMenuComponent implements OnInit {
   //     console.error(error);
   //   }
   // }
+
 
 
 }

@@ -6,14 +6,14 @@
     <div class=" inputElements rounded-2">
     <mat-form-field   class="from">
       <mat-label>Откуда</mat-label>
-      <input matInput #from>
+      <input [ngModel]="fromInput" matInput #from>
     </mat-form-field>
     </div>
 
     <div class=" inputElements rounded-2">
     <mat-form-field  class="to">
       <mat-label>Куда</mat-label>
-      <input matInput #to>
+      <input [ngModel]="toInput" matInput #to>
     </mat-form-field>
     </div>
 
