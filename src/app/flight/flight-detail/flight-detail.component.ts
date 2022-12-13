@@ -83,7 +83,7 @@ export class FlightDetailComponent implements OnInit {
             );
         }
       }, error => {
-        this.alertify.error('Error while changing flight data');
+        this.alertify.error('Ошибка при изменении данных');
       }
     )
       ;
@@ -136,11 +136,11 @@ export class FlightDetailComponent implements OnInit {
     this.orderService.AddOrder(this.orderVM)
       .subscribe(
         response => {
-          this.alertify.success('Order successfully added');
+          this.alertify.success('Заказ успешно добавлен');
           console.log("response orderService.AddOrder ")
           console.log(response)
         }, error => {
-           this.alertify.error('Order does not add');
+           this.alertify.error('Заказ не добавлен');
         }
       );
     // this.ticketService.AddTicket(this.ticket).subscribe(

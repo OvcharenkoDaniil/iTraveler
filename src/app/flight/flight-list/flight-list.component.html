@@ -5,8 +5,9 @@
 
 <label>Sort by &nbsp;</label>
 <select [(ngModel)] = 'SortbyParam'>
-<!--  <option value="FlightDuration">Duration</option>-->
-  <option value="totalPrice">Price</option>
+  <option value="flightDuration">Продолжительность полёта</option>
+  <option value="totalPrice">цена</option>
+
 </select>
 <button type="button" (click) = "onSortDirection()">
   <img *ngIf="SortDirection==='asc'" src="assets/icons/sort-up.png" >

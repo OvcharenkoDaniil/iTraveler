@@ -49,50 +49,80 @@ export class FlightCardComponent {
     // return false;
   }
 
-  AddOrder() {
-
-    this.orderVM.ticket_id=7;
-    this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
-    var user:IUser = this.authService.getUserData();
-    this.orderVM.userEmail=user.email;
-    var searchRequest:ISearchRequest = this.ticketService.getFilterData();
-    this.orderVM.FlightClass= searchRequest.FlightClass;
-    this.orderService.AddOrder(this.orderVM)
+  DeleteOrder() {
+    // console.log("this.ticket.ticketElem_id")
+    // console.log(this.ticket.order_id)
+    this.orderService.DeleteOrder(this.ticket.order_id)
       .subscribe(
         response => {
-          this.alertify.success('Order successfully added');
-          console.log("response orderService.AddOrder ")
-          console.log(response)
+          this.alertify.success('Заказ успешно удалён');
+          this.orderService.getOrders().subscribe(
+            response => {
+              console.log("response orderService.GetOrders ")
+              console.log(response)
+            }, error => {
+              //this.alertify.error('Order does not get');
+            }
+          );
         }, error => {
-          this.alertify.error('Order does not add');
+          this.alertify.error('Заказ не удалён');
         }
       );
-    // this.ticketService.AddTicket(this.ticket).subscribe(
-    //   createdTicketId => {
-    //     console.log("response ticketService.AddTicket")
-    //     if (createdTicketId != 0) {
-    //       this.orderVM.ticket_id=createdTicketId;
-    //       this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
-    //       var user:IUser = this.authService.getUserData();
-    //       this.orderVM.userEmail=user.email;
-    //       var searchRequest:ISearchRequest = this.ticketService.getFilterData();
-    //       this.orderVM.FlightClass= searchRequest.FlightClass;
-    //
-    //       this.orderService.AddOrder(this.orderVM)
-    //         .subscribe(
-    //           response => {
-    //             // this.alertify.success('Tickets received');
-    //             console.log("response sssssssssssssssssssssssssssssssss")
-    //           }, error => {
-    //             // this.alertify.error('Tickets does not received');
-    //           }
-    //         );
+  }
+
+  AddOrder() {
+
+    // this.orderVM.ticket_id=7;
+    // this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
+    // var user:IUser = this.authService.getUserData();
+    // this.orderVM.userEmail=user.email;
+    // var searchRequest:ISearchRequest = this.ticketService.getFilterData();
+    // this.orderVM.FlightClass= searchRequest.FlightClass;
+    // this.orderService.AddOrder(this.orderVM)
+    //   .subscribe(
+    //     response => {
+    //       this.alertify.success('Заказ успешно добавлен');
+    //       console.log("response orderService.AddOrder ")
+    //       console.log(response)
+    //     }, error => {
+    //       this.alertify.error('Заказ не добавлен');
     //     }
-    //   }, error => {
-    //     // this.alertify.error('Tickets does not received');
-    //   }
-    // );
+    //   );
+    this.ticketService.AddTicket(this.ticket).subscribe(
+      createdTicketId => {
+        console.log("response ticketService.AddTicket")
+        if (createdTicketId != 0) {
+          this.orderVM.ticket_id=createdTicketId;
+          this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
+          var user:IUser = this.authService.getUserData();
+          this.orderVM.userEmail=user.email;
+          var searchRequest:ISearchRequest = this.ticketService.getFilterData();
+          this.orderVM.FlightClass= searchRequest.FlightClass;
+
+          this.orderService.AddOrder(this.orderVM)
+            .subscribe(
+              response => {
+                this.alertify.success('Заказ успешно добавлен');
+                //console.log("response sssssssssssssssssssssssssssssssss")
+              }, error => {
+                this.alertify.error('Заказ не добавлен');
+              }
+            );
+        }
+      }, error => {
+        // this.alertify.error('Tickets does not received');
+      }
+    );
 
 
   }
+
+  isAuthenticated() {
+    if (this.authService.isAuthenticated()){
+      return true;
+    }
+      return false;
+  }
+
+
 }
