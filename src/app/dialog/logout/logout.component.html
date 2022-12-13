@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  <p> Вы действительно хотите выйти?</p>
+
+</div>
+<!--<div mat-dialog-actions>-->
+<!--  <button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
+<!--</div>-->
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="closeDialog()">Нет</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="logout()">Да</button>
+</div>
