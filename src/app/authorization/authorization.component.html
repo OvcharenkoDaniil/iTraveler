@@ -1,7 +1,7 @@
 <div>
   <mat-card-title>SignIn/SignUp</mat-card-title>
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" style="margin-top: 2rem;">
-    <mat-tab label="Sign In">
+    <mat-tab label="Вход">
       <mat-card-content>
         <form #loginForm='ngForm' (ngSubmit)="Login(loginForm)">
           <mat-form-field>
@@ -17,7 +17,7 @@
           <mat-form-field>
             <input
               matInput
-              placeholder="Password"
+              placeholder="Пароль"
               type="password"
               required
               name="password"
@@ -27,7 +27,7 @@
           </mat-form-field>
 
           <button [disabled]="!loginForm.valid" mat-raised-button color="primary" type="submit" class="login-button">
-            Sign In
+            Войти
           </button>
 
 
@@ -38,11 +38,11 @@
 
 
 
-    <mat-tab label="Sign Up">
+    <mat-tab label="Регистрация">
       <mat-card-content>
         <form [formGroup]="registrationForm" (ngSubmit)="Register()">
           <mat-form-field>
-            <input matInput placeholder="UserName" formControlName="userName">
+            <input matInput placeholder="Имя пользователя" formControlName="userName">
             <mat-icon matSuffix>perm_identity</mat-icon>
             <mat-error *ngIf="!userName.valid && (userName.touched || userSubmitted)">
               Please provide name
@@ -60,7 +60,7 @@
             <mat-icon matSuffix>email</mat-icon>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Password" type="password" formControlName="password">
+            <input matInput placeholder="Пароль" type="password" formControlName="password">
             <mat-error *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['required']">
               Please provide password
             </mat-error>
@@ -71,7 +71,7 @@
 
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
+            <input matInput placeholder="Подтвердить пароль" type="password" formControlName="confirmPassword">
             <mat-error
               *ngIf="!confirmPassword.valid && (confirmPassword.touched || userSubmitted) && confirmPassword.hasError('required')">
               Please confirm password
@@ -85,7 +85,7 @@
 
           <!--          class="login-button"-->
           <button mat-raised-button color="primary" type="submit" class="login-button">
-            Sign Up
+            Зарегистрироваться
           </button>
         </form>
       </mat-card-content>

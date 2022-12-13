@@ -74,7 +74,9 @@ export class AuthorizationComponent implements OnInit {
         response => {
           // this.alertify.success('Tickets received');
           if (response!=null){
-            console.log("Register executed")
+            //console.log("Register executed")
+            this.alertify.success("Вы зарегистрированы");
+            this.dialog.closeAll();
           }
         }, error =>{
           // this.alertify.error('Tickets does not received');
@@ -83,10 +85,10 @@ export class AuthorizationComponent implements OnInit {
       ;
       this.userSubmitted = false;
 
-      this.alertify.success("You are successfully registrated");
+
 
     }
-    else {this.alertify.error("Please, provide the required fields");}
+    else {this.alertify.error("Такой пользователь уже существует");}
     // this.userSubmitted = true;
     // if (this.registrationForm.valid) {
     // this.user = Object.assign(this.user, this.registerationForm.value);
@@ -107,7 +109,7 @@ export class AuthorizationComponent implements OnInit {
     // const token = this.authService.authUser(loginForm.value);
     this.authService.login(loginForm.value).subscribe(
       response => {
-        this.alertify.success('Login Successful');
+        this.alertify.success('Вы вошли в систему');
 
         //console.log(response);
         //alert(response + '    data')
@@ -115,7 +117,7 @@ export class AuthorizationComponent implements OnInit {
         this.dialog.closeAll();
         //this.router.navigate(['/main']);
       }, error =>{
-        this.alertify.error('User does not exist');
+        this.alertify.error('Такого пользователя не существует');
         });
   }
   // onLogin(loginForm: NgForm) {
