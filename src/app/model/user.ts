@@ -5,10 +5,11 @@ export interface RegisterVM {
   Password: string;
 }
 
-export interface SignIn {
+export class SignIn {
 
   email:string;
   password: string;
+  newPassword: string;
 }
 
 export interface IUser {

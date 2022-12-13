@@ -11,6 +11,43 @@ export class SortPipe implements PipeTransform {
     const sortDirection = args[1];
     let multiplier = 1;
 
+    const fwFD = "fwFlightDuration";
+    const bwFD = "bwFlightDuration";
+    console.log("const values")
+    console.log(fwFD)
+    console.log(bwFD)
+
+
+    if (sortField == "flightDuration") {
+      if (value) {
+        console.log("inside flightDuration sort value")
+        value.sort((a: any, b: any) => {
+          // console.log((+a[fwFD]) + (+a[bwFD]))
+          // console.log((+b[fwFD]) + (+b[bwFD]))
+            if (
+              ((+a[fwFD]) + (+a[bwFD])) < ((+b[fwFD]) + (+b[bwFD]))
+            ) {
+              //console.log("-1 * multiplier ")
+
+
+              return -1 * multiplier;
+            } else if (
+              ((+a[fwFD]) + (+a[bwFD])) > ((+b[fwFD]) + (+b[bwFD]))
+            ) {
+              //console.log("1 * multiplier ")
+
+              return 1 * multiplier;
+            } else {
+              return 0;
+            }
+          }
+        );
+        // console.log(" RESULTTTTTTTTTTTTTTTT")
+        // console.log(JSON.stringify(value))
+        return value;
+      }
+    }
+
     if (sortDirection === 'desc') {
       multiplier = -1;
     }

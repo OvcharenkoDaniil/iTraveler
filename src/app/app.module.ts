@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {JwtModule} from "@auth0/angular-jwt";
 import { AppComponent } from './app.component';
 import { FlightCardComponent } from './flight/flight-card/flight-card.component';
-import { SearchNavBarComponent } from './search-nav-bar/search-nav-bar.component';
+import { SearchNavBarComponent} from './search-nav-bar/search-nav-bar.component';
 import { FlightListComponent } from './flight/flight-list/flight-list.component';
 import {TicketService} from "./services/ticket.service";
 import { SearchMenuComponent } from './search-menu/search-menu.component';
@@ -44,6 +44,7 @@ import { StartPageComponent } from './start-page/start-page.component';
 import { FlightDetailComponent } from './flight/flight-detail/flight-detail.component';
 import {DetailResolverService} from "./flight/flight-detail/detail-resolver.service";
 import {TabsModule} from "ngx-bootstrap/tabs";
+import { LogoutComponent } from './dialog/logout/logout.component';
 
 
 export function tokenGetter(){
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+
     AppComponent,
     FlightCardComponent,
     SearchNavBarComponent,
@@ -84,9 +86,12 @@ const appRoutes: Routes = [
      StartPageComponent,
      FlightDetailComponent,
 
+     LogoutComponent,
+
   ],
 
   imports: [
+
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     BrowserModule,

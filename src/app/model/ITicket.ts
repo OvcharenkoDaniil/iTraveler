@@ -4,6 +4,7 @@ export interface ITicket {
   totalPrice: number;
   fwPrice: number;
   bwPrice: number;
+  order_id: number;
 
   fwAircompany_name:string;
   fwArrivalAirportCountry: string;
