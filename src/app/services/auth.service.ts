@@ -86,10 +86,15 @@ export class AuthService {
     var user = JSON.parse(localStorage.getItem(User));
     return user;
   }
-
-  logout():void{
+  clearAllData(){
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(User);
+    localStorage.removeItem(FILTER);
+    localStorage.removeItem(User);
+    localStorage.removeItem(TICKETLIST);
+  }
+  logout():void{
+    this.clearAllData();
     this.router.navigate(['']);
   }
 

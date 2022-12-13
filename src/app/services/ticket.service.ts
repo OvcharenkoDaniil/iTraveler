@@ -129,7 +129,7 @@ export class TicketService {
 
   getFilterData() {
     // @ts-ignore
-    var filter = JSON.parse(localStorage.getItem(FILTER));
+    var filter:ISearchRequest = JSON.parse(localStorage.getItem(FILTER));
     return filter;
 
   }
