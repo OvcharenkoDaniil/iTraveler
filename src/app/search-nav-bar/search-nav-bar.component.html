@@ -33,18 +33,18 @@
       </div>
 
       <div *ngIf="!loggedIn()" >
-        <button mat-button (click)="openDialog()" class="findBtn OnBtn" >Войти</button>
+        <button mat-button (click)="openAuthDialog()" class="findBtn OnBtn" >Войти</button>
       </div>
 
 
       <div *ngIf="loggedIn()" class="dropdown mr-5" dropdown>
         <a href="#" class="dropdown-toggle text-light " dropdownToggle (click)="false">
-          Welcome {{user.name}}
+          Добро пожаловать {{user.name}}
         </a>
         <div class="dropdown-menu" *dropdownMenu>
 
-          <a routerLink="/account" class="dropdown-item">My Profile</a>
-          <a (click)='logOut()' class="dropdown-item">Logout</a>
+          <a routerLink="/account" class="dropdown-item">Профиль</a>
+          <a (click)="openDialog()" class="dropdown-item">Выйти</a>
         </div>
       </div>
     </div>
