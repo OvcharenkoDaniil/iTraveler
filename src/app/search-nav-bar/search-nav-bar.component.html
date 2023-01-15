@@ -1,30 +1,8 @@
-<!--<nav class="navbar navbar-expand-lg fixed-top" style="background: #350A4E; " >-->
-<!--  <div class="container-fluid ">-->
-<!--      <img src="assets/icons/airplane-flight.png" width="30" height="30" class="d-inline-block align-top" alt="">-->
 
-<!--    <a class="navbar-brand mx-1" style="color: white" href="#">-->
-<!--      iTraveler-->
-<!--    </a>-->
-<!--    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--      <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-<!--    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--      <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link active" aria-current="page" href="#">Home</a>-->
-<!--        </li>-->
-
-<!--      </ul>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--    <div class="">-->
-<!--      <app-search-menu></app-search-menu>-->
-<!--    </div>-->
-<!--</nav>-->
 
 <div style=" background: #350A4E; ">
   <div class="container p-2 " style="color: white; ">
-    <div class="d-flex" style="flex-direction: row; align-items: center; justify-content: space-between">
+    <div class="d-flex" style="flex-direction: row; align-items: center; justify-content: space-between" >
       <div routerLink="">
         <img src="assets/icons/airplane-flight.png" width="40" height="40" class="d-inline-block align-top" alt="">
         <a class="navbar-brand mx-1" style="font-size: 1.6em; " >
@@ -32,18 +10,18 @@
         </a>
       </div>
 
-      <div *ngIf="!loggedIn()" >
+      <div *ngIf="!(isloggedIn$ | async) " >
         <button mat-button (click)="openAuthDialog()" class="findBtn OnBtn" >Войти</button>
       </div>
 
 
-      <div *ngIf="loggedIn()" class="dropdown mr-5" dropdown>
+      <div *ngIf="(isloggedIn$ | async) && loggedIn()" class="dropdown mr-5" dropdown>
         <a href="#" class="dropdown-toggle text-light " dropdownToggle (click)="false">
           Добро пожаловать {{user.name}}
         </a>
         <div class="dropdown-menu" *dropdownMenu>
 
-          <a routerLink="/account" class="dropdown-item">Профиль</a>
+          <a routerLink="/account" class="dropdown-item">Аккаунт</a>
           <a (click)="openDialog()" class="dropdown-item">Выйти</a>
         </div>
       </div>

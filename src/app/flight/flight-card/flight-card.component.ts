@@ -7,6 +7,7 @@ import {OrderVM} from "../../model/IOrder";
 import {TicketService} from "../../services/ticket.service";
 import {OrderService} from "../../services/order.service";
 import {AlertifyService} from "../../services/alertify.service";
+import {FilterService} from "../../services/filter.service";
 
 @Component({
   selector: 'app-flight-card',
@@ -34,20 +35,20 @@ export class FlightCardComponent {
   constructor(private authService:AuthService,
               private orderService: OrderService,
               private alertify: AlertifyService,
+              private filterService: FilterService,
               private ticketService: TicketService) {
   }
-  isAdmin() {
-    return this.authService.isAdmin()
-    // if (this.authService.isAuthenticated()) {
-    //   // @ts-ignore
-    //   this.user = this.authService.getUserData();
-    //   if (this.user.role=='Admin'){
-    //     return true;
-    //   }
-    //
-    // }
-    // return false;
+  ngOnInit(): void {
+    this.user = this.authService.getUserData();
   }
+  isAdmin() {
+    //return this.authService.isAdmin()
+    if (this.user.role =="Admin"){
+      return true;
+    }
+    else return false;
+  }
+
 
   DeleteOrder() {
     // console.log("this.ticket.ticketElem_id")
@@ -56,10 +57,13 @@ export class FlightCardComponent {
       .subscribe(
         response => {
           this.alertify.success('Заказ успешно удалён');
-          this.orderService.getOrders().subscribe(
+          //localStorage.setItem(num)
+          var user:IUser = this.authService.getUserData();
+
+          this.orderService.getOrders(user).subscribe(
             response => {
               console.log("response orderService.GetOrders ")
-              console.log(response)
+              //console.log(response)
             }, error => {
               //this.alertify.error('Order does not get');
             }
@@ -88,6 +92,7 @@ export class FlightCardComponent {
     //       this.alertify.error('Заказ не добавлен');
     //     }
     //   );
+
     this.ticketService.AddTicket(this.ticket).subscribe(
       createdTicketId => {
         console.log("response ticketService.AddTicket")
@@ -96,14 +101,13 @@ export class FlightCardComponent {
           this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
           var user:IUser = this.authService.getUserData();
           this.orderVM.userEmail=user.email;
-          var searchRequest:ISearchRequest = this.ticketService.getFilterData();
+          var searchRequest:ISearchRequest = this.filterService.getsearchRequestData();
           this.orderVM.FlightClass= searchRequest.FlightClass;
 
           this.orderService.AddOrder(this.orderVM)
             .subscribe(
               response => {
                 this.alertify.success('Заказ успешно добавлен');
-                //console.log("response sssssssssssssssssssssssssssssssss")
               }, error => {
                 this.alertify.error('Заказ не добавлен');
               }
@@ -118,11 +122,10 @@ export class FlightCardComponent {
   }
 
   isAuthenticated() {
-    if (this.authService.isAuthenticated()){
-      return true;
-    }
-      return false;
+    return this.authService.isAuthenticated();
   }
+
+
 
 
 }

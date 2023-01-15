@@ -1,7 +1,7 @@
 <div>
   <div>
 
-    <app-nav-bar></app-nav-bar>
+    <app-search-nav-bar></app-search-nav-bar>
   </div>
 
   <div class="container pt-3">
@@ -34,7 +34,7 @@
                   <div class="heading">
                     <strong>Дата отправления </strong>
                     <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwDepartureDate}}">
+                           value="{{ticket.fwDepartureDate }}">
                   </div>
                   <div class="heading">
                     <strong>Время отправления </strong>
@@ -85,11 +85,30 @@
                     <input type="text" class="form-control" [readOnly]="read"
                            value="{{ticket.fwFlightDuration}}">
                   </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwNumberOfTransfers}}">
+
+                  <mat-form-field appearance="fill" class="pt-4" style="width: 1000px;">
+                    <mat-label>Свободные места</mat-label>
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="1"
+                              cdkAutosizeMaxRows="5"
+                              [(ngModel)] = fwFreePlaces
+                    ></textarea>
+                  </mat-form-field>
+                  <div class="heading" [hidden]="isOneSeat">
+                    <strong>Номер места для 1 пассажира </strong>
+                    <input type="text" class="form-control" required [(ngModel)]="fwfirstSeat">
                   </div>
+                  <div class="heading" [hidden]="isTwoSeat">
+                    <strong>Номер места для 2 пассажира</strong>
+                    <input type="text" class="form-control" required [(ngModel)]="fwsecondSeat">
+                  </div>
+                  <div class="heading" [hidden]="isThreeSeat">
+                    <strong>Номер места для 3 пассажира </strong>
+                    <input type="text" class="form-control" required [(ngModel)]="fwthirdSeat">
+                  </div>
+
                 </div>
 
               </div>
@@ -135,11 +154,11 @@
                     <input type="text" class="form-control" name="fwPrice" [readOnly]="read" [(ngModel)]="ticket.fwPrice"
                            >
                   </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" name="fwNumberOfTransfers" [readOnly]="read"
-                           [(ngModel)]="ticket.fwNumberOfTransfers">
-                  </div>
+<!--                  <div class="heading">-->
+<!--                    <strong>Количество пересадок</strong>-->
+<!--                    <input type="text" class="form-control" name="fwNumberOfTransfers" [readOnly]="read"-->
+<!--                           [(ngModel)]="ticket.fwNumberOfTransfers">-->
+<!--                  </div>-->
                 </div>
                 <button  mat-raised-button color="primary" class="mt-4" type="submit" >
                   Сохранить изменения
@@ -220,10 +239,26 @@
                     <input type="text" class="form-control" [readOnly]="read"
                            value="{{ticket.bwFlightDuration}}">
                   </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwNumberOfTransfers}}">
+                  <mat-form-field appearance="fill" class="pt-4" style="width: 1000px;"  >
+                    <mat-label>Свободные места</mat-label>
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="1"
+                              cdkAutosizeMaxRows="5"
+                              [(ngModel)] = bwFreePlaces></textarea>
+                  </mat-form-field>
+                  <div class="heading" [hidden]="isOneSeat">
+                    <strong>Номер места для 1 пассажира </strong>
+                    <input type="text" class="form-control" required [(ngModel)]="bwfirstSeat">
+                  </div>
+                  <div class="heading" [hidden]="isTwoSeat">
+                    <strong>Номер места для 2 пассажира</strong>
+                    <input type="text" class="form-control" required [(ngModel)]="bwsecondSeat">
+                  </div>
+                  <div class="heading" [hidden]="isThreeSeat">
+                    <strong>Номер места для 3 пассажира </strong>
+                    <input type="text" class="form-control" required [(ngModel)]="bwthirdSeat">
                   </div>
                 </div>
 
@@ -244,7 +279,7 @@
                   <div class="heading">
                     <strong>Дата отправления </strong>
                     <input type="text" class="form-control" name="bwDepartureDate" [readOnly]="read"
-                           [(ngModel)]="ticket.bwDepartureDate ">
+                           [(ngModel)]="ticket.bwDepartureDate" >
                   </div>
                   <div class="heading">
                     <strong>Время отправления </strong>
@@ -274,11 +309,11 @@
                     <input type="text" class="form-control" [readOnly]="read" name="bwPrice"
                            [(ngModel)]="ticket.bwPrice ">
                   </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read" name="bwNumberOfTransfers"
-                           [(ngModel)]="ticket.bwNumberOfTransfers ">
-                  </div>
+<!--                  <div class="heading">-->
+<!--                    <strong>Количество пересадок</strong>-->
+<!--                    <input type="text" class="form-control" [readOnly]="read" name="bwNumberOfTransfers"-->
+<!--                           [(ngModel)]="ticket.bwNumberOfTransfers ">-->
+<!--                  </div>-->
                 </div>
                 <button  class="mt-4" mat-raised-button color="primary" type="submit" >
                   Сохранить изменения
@@ -288,8 +323,11 @@
 <!--                </div>-->
               </form>
             </tab>
-<!--            <div class="btn btn-primary"  *ngIf="!isAdmin()" (click)="AddOrder()">-->
-<!--              Забронировать-->
+            <button [disabled]="!(isloggedIn$ | async) && !isAdmin()" mat-raised-button color="primary" (click)="AddOrder()" class="login-button">
+              Забронировать
+            </button>
+<!--            <div class="row justify-content-center mx-0 mt-4" *ngIf="!isAdmin()" (click)="AddOrder()">-->
+<!--              <div class="col-auto btn btn-primary  ">Забронировать</div>-->
 <!--            </div>-->
           </tabset>
         </div>

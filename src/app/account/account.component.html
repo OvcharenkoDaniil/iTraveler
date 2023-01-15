@@ -3,25 +3,32 @@
 <div class="container " style="margin-top: 2rem; ">
   <!--  *ngIf="isLoggedIn"-->
   <div style="display: flex; flex-direction: row;  justify-content: space-between">
-    <div class="col-2  myShadow" style="max-height: 100px;">
+    <div class="col-2  myShadow" style="height: 200px;">
       <mat-action-list>
-        <button mat-list-item (click)="SetItem(profileItem)">Профиль</button>
-        <button mat-list-item (click)="SetItem(orderItem)">Мои заказы</button>
+        <button mat-list-item (click)="SetItem(profileItem)">Аккаунт</button>
+        <button mat-list-item *ngIf="!isAdmin()" (click)="SetItem(orderItem)">Мои заказы</button>
+        <button mat-list-item *ngIf="isAdmin()" (click)="SetItem(orderItem)">Заказы пользователя</button>
+        <button mat-list-item *ngIf="isAdmin()" (click)="SetItem(accountItem)">Пользователи</button>
+        <button mat-list-item *ngIf="isAdmin()" (click)="SetItem(addItem)">Добавить рейс</button>
       </mat-action-list>
     </div>
 
-    <div class="col-7 " *ngIf="loggedIn()">
+<!--    *ngIf="loggedIn()"-->
+    <div class="col-7 " >
 
       <mat-card>
         <mat-list *ngIf="activeMenuItem==profileItem">
-          <mat-list-item class="fw-bold">Профиль</mat-list-item>
+          <mat-list-item class="fw-bold">Аккаунт</mat-list-item>
           <mat-list-item>Пользователь: {{user.name}}</mat-list-item>
-          <mat-list-item>Email: {{user.email}}</mat-list-item>
+          <mat-list-item>Почта: {{user.email}}</mat-list-item>
+          <mat-list-item>Роль: {{user.role}}</mat-list-item>
+          <mat-list-item>Номер телефона: +375291234567</mat-list-item>
 
 
-            <mat-list-item class="fw-bold mt-3">Сменить пароль</mat-list-item>
-          <mat-list-item class="mt-2" >
-            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+          <mat-list-item class="fw-bold mt-3">Сменить пароль</mat-list-item>
+          <mat-list-item class="mt-2">
+            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changePasswordForm"
+                  (ngSubmit)="changePassword()">
               <mat-form-field style="width: 130px;">
                 <input matInput placeholder="Пароль" type="password" formControlName="password">
                 <mat-error
@@ -43,7 +50,7 @@
                 </mat-error>
                 <mat-error
                   *ngIf="!newPassword.valid && (newPassword.touched || userSubmitted) && newPassword.errors?.['minlength']">
-                  длина пароля должна быть не менее 6 символов
+                  длина пароля должна быть не менее 5 символов
                 </mat-error>
                 <mat-icon matSuffix>lock</mat-icon>
 
@@ -60,7 +67,7 @@
               Пароли не совпадают
             </span>
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit" >
+              <button mat-raised-button color="primary" type="submit">
                 Сменить пароль
               </button>
             </form>
@@ -68,11 +75,151 @@
         </mat-list>
 
         <mat-list *ngIf="activeMenuItem==orderItem">
+          <div *ngIf="isAdmin()">Selected user Orders:</div>
           <div *ngFor="let order of orders$ | async"
-               class="myShadow mb-3 rounded-3 " >
+               class="myShadow mb-3 rounded-3 ">
             <app-flight-card [mode]="mode" [ticket]="order"></app-flight-card>
           </div>
         </mat-list>
+
+        <mat-list *ngIf="activeMenuItem==accountItem && isAdmin()">
+          <div *ngFor="let account of accounts$ | async" class="myShadow mb-3 rounded-3 ">
+            <tr>
+              <td class="ps-4 col-2">{{account.email}}</td>
+              <td class="ps-4 col-2">{{account.name}}</td>
+              <td class="ps-4 col-2">{{account.role}}</td>
+              <td class="ps-4 col">
+<!--                <div class="btn  " (click)="DeleteAccount(account)">Удалить</div>-->
+                <div class="btn  " (click)="ShowOrders(account)">Просмотреть заказы</div>
+              </td>
+            </tr>
+          </div>
+        </mat-list>
+
+        <mat-list *ngIf="activeMenuItem==addItem && isAdmin()">
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Полёты
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div *ngFor="let plane of planes$ | async" class="myShadow mb-3 rounded-3 ">
+                <tr>
+                  <td class="ps-4 col-2">{{plane.plane_id}}</td>
+                  <td class="ps-4 col-2">{{plane.name}}</td>
+                  <td class="ps-4 col-2">{{plane.aircompany_name}}</td>
+                  <td class="ps-4 col-2">{{plane.standardClassCapacity}}</td>
+                  <td class="ps-4 col-2">{{plane.firstClassCapacity}}</td>
+                  <td class="ps-4 col-2">
+                    <!--                    <div class="btn" (click)="AddPlane(plane)">Добавить</div>-->
+                    <div class="btn" (click)="DeletePlane(plane)">Удалить</div>
+                    <!--                    <div class="btn" (click)="EditPlane(plane)">Изменить</div>-->
+                  </td>
+                </tr>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Аэропорты
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div *ngFor="let airport of airports$ | async" class="myShadow mb-3 rounded-3 ">
+                <tr>
+                  <td class="ps-4 col-2">{{airport.airport_id}}</td>
+                  <td class="ps-4 col-2">{{airport.city}}</td>
+                  <td class="ps-4 col-2">{{airport.country}}</td>
+                  <td class="ps-4 col-3">{{airport.name}}</td>
+                  <td class="ps-4 col-3">
+                    <div class="btn" (click)="DeleteAirport(airport)">Удалить</div>
+                    <!--                    <div class="btn" (click)="AddAirport(airport)">Добавить</div>-->
+                    <!--                    <div class="btn" (click)="EditAirport(airport)">Изменить</div>-->
+                  </td>
+                </tr>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-card-content>
+            <form #addForm='ngForm' (ngSubmit)="addWithForm(addForm)">
+              <div class="col-sm-6">
+                <h2>Отправление</h2>
+                <div>
+                  <mat-form-field class="FromPicker">
+                    <mat-label>Дата отправления</mat-label>
+                    <input matInput [matDatepicker]="ToPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
+                           [(ngModel)]="selectedFromMatDate" name="departureDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #ToPicker></mat-datepicker>
+                    <!--                  <input type="text" name="departureDate" class="form-control" ngModel>-->
+                  </mat-form-field>
+                </div>
+                <div class="heading">
+                  <strong>Время отправления </strong>
+                  <input type="text" name="departureTime" required class="form-control" ngModel>
+<!--                  <mat-error *ngIf="!userName.valid && (userName.touched || userSubmitted) && userName.errors?.['required']">-->
+<!--                    Введите время отправления-->
+<!--                  </mat-error>-->
+                </div>
+                <div class="heading">
+                  <strong>Идентификатор аэропорта отправления</strong>
+                  <input type="text" class="form-control" required name="departureAirport_id" ngModel>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <h2>Прибытие</h2>
+                <div>
+                  <mat-form-field class="FromPicker">
+                    <mat-label>Дата прибытия</mat-label>
+                    <input matInput [matDatepicker]="FromPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
+                           [(ngModel)]="selectedReturnMatDate" required name="arrivalDate">
+                    <mat-datepicker-toggle matSuffix [for]="FromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #FromPicker></mat-datepicker>
+                    <!--                  <input type="text" name="arrivalDate" class="form-control" ngModel>-->
+                  </mat-form-field>
+                </div>
+                <div class="heading">
+                  <strong>Время прибытия </strong>
+                  <input type="text" name="arrivalTime" required class="form-control" ngModel>
+                </div>
+                <div class="heading">
+                  <strong>Идентификатор аэропорта прибытия</strong>
+                  <input type="text" class="form-control" required name="arrivalAirport_id" ngModel>
+                </div>
+              </div>
+              <div class="mt-4 col-sm-6">
+
+                <div class="heading">
+                  <strong>Цена </strong>
+                  <input type="text" class="form-control" required name="price" ngModel>
+                </div>
+                <div class="heading">
+                  <strong>Идентификатор самолёта </strong>
+                  <input type="text" class="form-control" required name="plane_id" ngModel>
+                </div>
+                <div class="heading">
+                  <strong>Продолжительность полёта </strong>
+                  <input type="text" class="form-control" required name="flightDuration" ngModel>
+                </div>
+                <div class="heading">
+                  <strong>Количество билетов бизнес класса </strong>
+                  <input type="text" class="form-control" required name="firstClassTicketsLeft" ngModel>
+                </div>
+                <div class="heading">
+                  <strong>Количество билетов стандартного класса </strong>
+                  <input type="text" class="form-control" required name="standardClassTicketsLeft" ngModel>
+                </div>
+
+              </div>
+              <button [disabled]="!addForm.valid" mat-raised-button color="primary" class="mt-4" type="submit">
+                Добавить
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-list>
+
+
       </mat-card>
 
     </div>

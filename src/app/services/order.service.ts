@@ -4,20 +4,22 @@ import {BehaviorSubject, Observable, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ITicket} from "../model/ITicket";
-import {AuthService, FILTER, TICKETLIST, User} from "./auth.service";
-import {OrderData, OrderVM} from "../model/IOrder";
+import {AuthService, FILTER, TICKETLIST} from "./auth.service";
+import {Order, OrderData, OrderVM} from "../model/IOrder";
 import {ISearchRequest} from "../model/iSearchRequest";
 import {take} from "rxjs/operators";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  BASE_URL = "https://localhost:7138/";
+  //BASE_URL = "https://localhost:7138/";
   ADD_ORDER = "api/Order/AddOrder";
   DELETE_ORDER = "api/Order/DeleteOrder";
   GET_ORDERS = "api/Order/GetOrders";
+  GET_ALL_ORDERS = "api/Order/GetAllOrders";
 
   user:IUser;
   // @ts-ignore
@@ -29,26 +31,33 @@ export class OrderService {
     private authService : AuthService
   ) { }
 
+  GetAllOrders() {
+    return this.http.get<Order[]>(environment.BASE_URL+this.GET_ALL_ORDERS).pipe(
+      tap(data=>{
+        console.log("Register POST------------------------")
+        console.log(data)
+
+      })
+    )
+  }
   DeleteOrder(order_id: number) {
     console.log("DeleteOrder order_id")
     console.log(order_id)
     var order = new OrderData();
     order.orderId = order_id
-    return this.http.post<Boolean>(this.BASE_URL+this.DELETE_ORDER,order);
+
+    return this.http.post<Boolean>(environment.BASE_URL+this.DELETE_ORDER,order);
   }
   AddOrder(orderVM:OrderVM) {
     console.log("AddOrder service")
     console.log(JSON.stringify(orderVM))
     // @ts-ignore
     //const body = {ticket: ticket, email: this.user.email};
-    return this.http.post<Boolean>(this.BASE_URL+this.ADD_ORDER,orderVM);
+    return this.http.post<Boolean>(environment.BASE_URL+this.ADD_ORDER,orderVM);
   }
 
-  getOrders() {
-    var user:IUser = this.authService.getUserData();
-    console.log("userEmail-------------");
-    console.log(user.email);
-    return this.http.post<ITicket[]>(this.BASE_URL + this.GET_ORDERS, user)
+  getOrders(user:IUser) {
+    return this.http.post<ITicket[]>(environment.BASE_URL + this.GET_ORDERS, user)
       .pipe(
         tap(result => {
           console.log("getOrders-------------");

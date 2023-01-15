@@ -7,7 +7,10 @@ import axios, {AxiosResponse} from "axios";
 import {ITicket} from "../model/ITicket";
 import {SignIn} from "../model/user";
 import {Token} from "../model/token";
-import {ACCESS_TOKEN_KEY, FILTER, TICKETLIST, User} from "./auth.service";
+import {ACCESS_TOKEN_KEY, FILTER, TICKETLIST} from "./auth.service";
+import {environment} from "../../environments/environment";
+import {FilterService} from "./filter.service";
+import {FreePlaces} from "../model/FreePlaces";
 
 
 @Injectable({
@@ -15,65 +18,29 @@ import {ACCESS_TOKEN_KEY, FILTER, TICKETLIST, User} from "./auth.service";
 })
 export class TicketService {
 
-  BASE_URL = "https://localhost:7138/";
+  //BASE_URL = "https://localhost:7138/";
   GET_FILTERED_TICKETS = "api/Ticket/GetFilteredTickets";
   GET_All_TICKETS = "api/Ticket/GetTikets";
   UPDATE_TICKET = "api/Ticket/UpdateTiket";
   ADD_TICKET = "api/Ticket/AddTiket";
+  GET_FW_FREE = "api/Ticket/fwFreeTickets";
+  GET_BW_FREE = "api/Ticket/bwFreeTickets";
   // @ts-ignore
-
-
   tickets: BehaviorSubject<ITicket[]> = new BehaviorSubject<ITicket[]>();
   tickets$: Observable<ITicket[]> = this.tickets.asObservable();
   val: ITicket[];
   element: ITicket;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private filterService: FilterService) {
   }
 
-
-  // 'data/flights.json'
-  // this.BASE_URL + this.GET_All_TICKETS
   getAllTickets(): Observable<ITicket[]> {
-    //const response = await axios.get<BaseResponse<ITicket>>(this.BASE_URL + this.GET_All_TICKETS);
-
-    return this.http.get<ITicket[]>(this.BASE_URL + this.GET_All_TICKETS);
-
-    // return this.http.get<ITicket[]>(this.BASE_URL + this.GET_All_TICKETS).pipe(map(data => {
-    //   console.log("GETRESULT------------------------------------------------------");
-    //   let tickets = data;
-    //   return tickets;
-    // }));
+    return this.http.get<ITicket[]>(environment.BASE_URL + this.GET_All_TICKETS);
   }
 
-  // getAllTickets(): Observable<ITicket[]> {
-  //   return this.http.get(this.BASE_URL+this.GET_All_TICKETS).pipe(
-  //     map(data => {
-  //       let res: any;
-  //       let result: BaseResponse<ITicket>;
-  //
-  //       if (data) {
-  //         res = data;
-  //         console.log("GETRESULT------------------------------------------------------");
-  //         result = res;
-  //         console.log(result);
-  //         for (var item in result.Data) {
-  //           //result = res[item];
-  //           console.log("val------------------------------------------------------");
-  //         }
-  //
-  //       }
-  //       //}
-  //       return ticketsArray;
-  //     })
-  //   );
-  // }
-
-
-  getFilteredTickets(filter: ISearchRequest) {
-    // console.log("FILTER-------------");
-    // console.log(filter);
-    return this.http.post<ITicket[]>(this.BASE_URL + this.GET_FILTERED_TICKETS, filter)
+  getFilteredTickets(searchRequest: ISearchRequest) {
+    return this.http.post<ITicket[]>(environment.BASE_URL + this.GET_FILTERED_TICKETS, searchRequest)
       .pipe(
         tap(result => {
           console.log("response-------------");
@@ -84,9 +51,10 @@ export class TicketService {
             console.log(JSON.stringify(data));
             this.tickets.next(this.val);
           });
+          this.filterService.AddSearchRequest(searchRequest);
           localStorage.removeItem(TICKETLIST);
-          localStorage.setItem(TICKETLIST, JSON.stringify(this.val));
-          localStorage.setItem(FILTER, JSON.stringify(filter));
+          //localStorage.setItem(TICKETLIST, JSON.stringify(this.val));
+          localStorage.setItem(FILTER, JSON.stringify(searchRequest));
         })
       )
 
@@ -100,7 +68,7 @@ export class TicketService {
 
   UpdateTicket(ticket: ITicket) {
     console.log("UpdateTicket PUT method")
-    return this.http.post<boolean>(this.BASE_URL + this.UPDATE_TICKET, ticket)
+    return this.http.post<boolean>(environment.BASE_URL + this.UPDATE_TICKET, ticket)
       .pipe(
         tap(data => {
           console.log("PUT result------------------------")
@@ -112,11 +80,11 @@ export class TicketService {
   getTicket(ticketId: number) {
     this.tickets$.pipe(take(1)).subscribe((data) => {
       for (let i = 0; i < data.length; i++) {
-        console.log("FOR")
+        //console.log("FOR")
         if (data[i].ticketElem_id == ticketId) {
-          console.log("FIND_DATA")
+          //console.log("FIND_DATA")
           this.element = data[i];
-          console.log(JSON.stringify(this.element))
+          //console.log(JSON.stringify(this.element))
         }
       }
     });
@@ -124,14 +92,25 @@ export class TicketService {
   }
 
   AddTicket(ticket: ITicket) {
-    return this.http.post<number>(this.BASE_URL + this.ADD_TICKET, ticket);
+    console.log("ADDTicket");
+    console.log(ticket);
+    return this.http.post<number>(environment.BASE_URL + this.ADD_TICKET, ticket);
   }
+  GetFwFreeTicket(ticket: ITicket) {
 
-  getFilterData() {
-    // @ts-ignore
-    var filter:ISearchRequest = JSON.parse(localStorage.getItem(FILTER));
-    return filter;
-
+    return this.http.post<FreePlaces>(environment.BASE_URL + this.GET_FW_FREE, ticket);
   }
+  GetBwFreeTicket(ticket: ITicket) {
+
+    return this.http.post<FreePlaces>(environment.BASE_URL + this.GET_BW_FREE, ticket);
+  }
+  //
+  // getFilterData() {
+  //
+  //   // @ts-ignore
+  //   var filter:ISearchRequest = JSON.parse(localStorage.getItem(FILTER));
+  //   return filter;
+  //
+  // }
 }
 

@@ -33,22 +33,22 @@ import { MainDataComponent } from './main-data/main-data.component';
 import { LoginComponent } from './login/login.component';
 
 import {ACCESS_TOKEN_KEY, AuthService} from "./services/auth.service";
-import {UserService} from "./services/user.service";
+import {AccountService} from "./services/account.service";
 import {AlertifyService} from "./services/alertify.service";
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { AccountComponent } from './account/account.component';
 import {MatListModule} from "@angular/material/list";
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { FlightDetailComponent } from './flight/flight-detail/flight-detail.component';
 import {DetailResolverService} from "./flight/flight-detail/detail-resolver.service";
 import {TabsModule} from "ngx-bootstrap/tabs";
 import { LogoutComponent } from './dialog/logout/logout.component';
+import {environment} from "../environments/environment";
 
 
 export function tokenGetter(){
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
+  return environment.jwtToken;
 }
 
 
@@ -82,7 +82,7 @@ const appRoutes: Routes = [
      FilterPipe,
      SortPipe,
      AccountComponent,
-     NavBarComponent,
+
      StartPageComponent,
      FlightDetailComponent,
 
@@ -128,7 +128,7 @@ const appRoutes: Routes = [
     TicketService,
     AlertifyService,
     AuthService,
-    UserService,
+    AccountService,
     DetailResolverService,
     {provide: MAT_DATE_LOCALE, useValue:'ru-RU' }
   ],

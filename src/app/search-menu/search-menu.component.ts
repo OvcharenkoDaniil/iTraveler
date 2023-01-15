@@ -4,6 +4,7 @@ import {ISearchRequest} from "../model/iSearchRequest";
 import {TicketService} from "../services/ticket.service";
 import {AlertifyService} from "../services/alertify.service";
 import {Router} from "@angular/router";
+import {FilterService} from "../services/filter.service";
 
 interface Passanger {
   value: string;
@@ -33,20 +34,21 @@ export class SearchMenuComponent implements OnInit {
 
   constructor(private ticketService: TicketService,
               private alertify: AlertifyService,
-              private router:Router) {
+              private filterService: FilterService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     console.log("filter in main");
-    var filter = this.ticketService.getFilterData();
+    var filter = this.filterService.getsearchRequestData();
     console.log(filter);
-    if (filter!= null){
+    if (filter != null) {
       this.fromInput = filter.DepartureCity;
       this.toInput = filter.ArrivalCity;
-      this.selectedFromMatDate= filter.DepartureDate;
-      this.selectedReturnMatDate= filter.ReturnDate;
-      this.numberOfPassangers= filter.NumberOfPassangers.toString();
-      this.flightClass= filter.FlightClass;
+      this.selectedFromMatDate = filter.DepartureDate;
+      this.selectedReturnMatDate = filter.ReturnDate;
+      this.numberOfPassangers = filter.NumberOfPassangers.toString();
+      this.flightClass = filter.FlightClass;
     }
   }
 
@@ -59,75 +61,60 @@ export class SearchMenuComponent implements OnInit {
   async getFilteredTickets(from: HTMLInputElement, to: HTMLInputElement) {
     try {
 
-      // const obj: ISearchRequest = {
-      //   DepartureCity: from.value,
-      //   ArrivalCity: to.value,
-      //   DepartureDate: this.selectedFromMatDate,
-      //   ReturnDate: this.selectedReturnMatDate,
-      //   NumberOfPassangers: +this.numberOfPassangers,
-      //   FlightClass:this.flightClass
-      // };
-      const obj2: ISearchRequest = {
-        DepartureCity: "AirportCity1",
-        ArrivalCity: "AirportCity2",
+      const filterData: ISearchRequest = {
+        DepartureCity: from.value,
+        ArrivalCity: to.value,
         DepartureDate: this.selectedFromMatDate,
-        ReturnDate: this.selectedFromMatDate,
-        NumberOfPassangers: 2,
-        FlightClass:"FirstClass"
+        ReturnDate: this.selectedReturnMatDate,
+        NumberOfPassangers: +this.numberOfPassangers,
+        FlightClass: this.flightClass
       };
-      console.log("obj");
-      console.log(obj2);
+      if (!this.isValueEmpty(filterData)) {
 
-      this.ticketService.getFilteredTickets(obj2)
-        .subscribe(
-        response => {
-          // this.alertify.success('Tickets received');
-          if (response!=null){
-            this.router.navigateByUrl("/main");
-          }
-        }, error =>{
-          // this.alertify.error('Tickets does not received');
+
+        console.log("filterData");
+        console.log(filterData.DepartureDate);
+        console.log(filterData.ReturnDate);
+        if (
+          filterData.DepartureDate < filterData.ReturnDate
+        ) {
+          this.ticketService.getFilteredTickets(filterData)
+            .subscribe(
+              response => {
+                console.log("ticketService.getFilteredTickets response")
+                console.log(response)
+                // this.alertify.success('Tickets received');
+                if (response != null) {
+                  this.router.navigateByUrl("/main");
+                }
+                else this.alertify.error('Билеты не найдены');
+              }, error => {
+                // this.alertify.error('Tickets does not received');
+              }
+            );
         }
-      );
-
-      //this.searchRequest.emit(obj);
-      // this.searchObj.DepartureCity = from.value;
-      // this.searchObj.ArrivalCity = to.value;
-      // this.searchObj.ArrivalCity = to.value;
-      // this.searchRequest.emit()
-      // const response = await axios.get(this.BASE_URL + this.GET_FLIGHTS);
+      else this.alertify.error("Дата отправления не может быть позже даты прибытия")
+      }
+      else this.alertify.error("Заполните все поля")
     } catch (error) {
       console.error(error);
     }
   }
 
-  // async getFlights() {
-  //   try {
-  //     const response = await axios.get(this.BASE_URL + this.GET_FLIGHTS);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
-
-
+  private isValueEmpty(filterData: ISearchRequest) {
+    if (
+      filterData.DepartureCity == null ||
+      filterData.ArrivalCity == null ||
+      filterData.DepartureDate == null ||
+      filterData.ReturnDate == null ||
+      filterData.FlightClass == null ||
+      filterData.NumberOfPassangers == null
+    ){
+      return true;
+    }
+      return false;
+  }
 }
 
 
-// const actions = {
-//   async GET_ALL_FLIGHTS({commit}) {
-//     try {
-//       await axios.get("https://localhost:7138/api/Flight").then((response) => {
-//         const flights = response.data.data;
-//         if (flights.length === 0) {
-//           alert("Пользователи не найдены");
-//         }
-//         alert(`Количество пользователей "${flights.length}"`);
-//         commit("SET_FLIGHTS", flights);
-//       });
-//     } catch (error) {
-//       console.log("err", error);
-//     }
-//   }
-// }

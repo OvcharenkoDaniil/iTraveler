@@ -22,7 +22,7 @@ export class MainDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("IN MAIN ");
+    //console.log("IN MAIN ");
   }
   // isUserAuthenticated() {
   //   // @ts-ignore

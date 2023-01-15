@@ -1,10 +1,21 @@
 export interface ITicket {
   ticketElem_id: number;
+  flightClass:string;
   numberOfPassengers: number;
   totalPrice: number;
   fwPrice: number;
   bwPrice: number;
   order_id: number;
+
+
+   fwFirst_ticket_num:number;
+ fwSecond_ticket_num:number;
+ fwThird_ticket_num:number;
+ bwFirst_ticket_num:number;
+ bwSecond_ticket_num:number;
+ bwThird_ticket_num:number;
+
+
 
   fwAircompany_name:string;
   fwArrivalAirportCountry: string;

@@ -1,36 +1,48 @@
 <div>
-  <mat-card-title>SignIn/SignUp</mat-card-title>
+  <mat-card-title>Вход/Регистрация</mat-card-title>
   <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" style="margin-top: 2rem;">
     <mat-tab label="Вход">
       <mat-card-content>
-        <form #loginForm='ngForm' (ngSubmit)="Login(loginForm)">
+        <form [formGroup]="loginForm" (ngSubmit)="LoginWithForm()">
+<!--        <form #loginForm='ngForm' (ngSubmit)="LoginWithForm(loginForm)">-->
           <mat-form-field>
             <input
               matInput
+              formControlName="email"
               placeholder="Email"
-              name="email"
-              required
-              ngModel
             >
+<!--              name="email"-->
+<!--              required-->
+<!--              ngModel-->
+            <mat-error *ngIf="!emailForLogin.valid && (emailForLogin.touched || userSubmitted) && emailForLogin.hasError('required')">
+              Введите email
+            </mat-error>
+            <mat-error *ngIf="!emailForLogin.valid && (emailForLogin.touched || userSubmitted) && emailForLogin.hasError('email')">
+              email не валиден
+            </mat-error>
             <mat-icon matSuffix>email</mat-icon>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="pt-1">
             <input
               matInput
               placeholder="Пароль"
               type="password"
-              required
-              name="password"
-              ngModel
+              formControlName="password"
             >
+<!--              name="password"-->
+<!--              required-->
+<!--              ngModel-->
+            <mat-error *ngIf="!passwordForLogin.valid && (passwordForLogin.touched || userSubmitted) && passwordForLogin.errors?.['required']">
+              Введите пароль
+            </mat-error>
+            <mat-error *ngIf="!passwordForLogin.valid && (passwordForLogin.touched || userSubmitted) && passwordForLogin.errors?.['minlength']">
+              Минимальная длина пароля составляет 5 символов
+            </mat-error>
             <mat-icon matSuffix>lock</mat-icon>
           </mat-form-field>
-
           <button [disabled]="!loginForm.valid" mat-raised-button color="primary" type="submit" class="login-button">
             Войти
           </button>
-
-
         </form>
       </mat-card-content>
     </mat-tab>
@@ -44,28 +56,31 @@
           <mat-form-field>
             <input matInput placeholder="Имя пользователя" formControlName="userName">
             <mat-icon matSuffix>perm_identity</mat-icon>
-            <mat-error *ngIf="!userName.valid && (userName.touched || userSubmitted)">
-              Please provide name
+            <mat-error *ngIf="!userName.valid && (userName.touched || userSubmitted) && userName.errors?.['required']">
+              Введите имя пользователя
+            </mat-error>
+            <mat-error *ngIf="!userName.valid && (userName.touched || userSubmitted) && userName.errors?.['minlength']">
+              Минимальная длина имени пользователя составляет 5 символов
             </mat-error>
 
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="!email.valid && (email.touched || userSubmitted) && email.hasError('required')">Please
-              provide email id
+            <mat-error *ngIf="!email.valid && (email.touched || userSubmitted) && email.hasError('required')">
+              Введите email
             </mat-error>
-            <mat-error *ngIf="!email.valid && (email.touched || userSubmitted) && email.hasError('email')">Please
-              provide valid email id
+            <mat-error *ngIf="!email.valid && (email.touched || userSubmitted) && email.hasError('email')">
+              email не валиден
             </mat-error>
             <mat-icon matSuffix>email</mat-icon>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Пароль" type="password" formControlName="password">
             <mat-error *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['required']">
-              Please provide password
+              Введите пароль
             </mat-error>
             <mat-error *ngIf="!password.valid && (password.touched || userSubmitted) && password.errors?.['minlength']">
-              Password should not be lesser than 6 character
+              Минимальная длина пароля составляет 5 символов
             </mat-error>
             <mat-icon matSuffix>lock</mat-icon>
 
@@ -74,17 +89,17 @@
             <input matInput placeholder="Подтвердить пароль" type="password" formControlName="confirmPassword">
             <mat-error
               *ngIf="!confirmPassword.valid && (confirmPassword.touched || userSubmitted) && confirmPassword.hasError('required')">
-              Please confirm password
+              Повторите пароль
             </mat-error>
             <mat-icon matSuffix>lock</mat-icon>
 
             <span *ngIf="registrationForm.hasError('notmatched') && confirmPassword.valid" class="error-block">
-              Password not matched
+              Пароли не совпадают
             </span>
           </mat-form-field>
 
           <!--          class="login-button"-->
-          <button mat-raised-button color="primary" type="submit" class="login-button">
+          <button [disabled]="!registrationForm.valid" mat-raised-button color="primary" type="submit" class="login-button">
             Зарегистрироваться
           </button>
         </form>
