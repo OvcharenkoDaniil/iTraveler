@@ -28,7 +28,7 @@ export class FlightListComponent implements OnInit {
   filter$: Observable<IFilter>;
   constructor(
     private ticketService: TicketService,
-    private filterService:FilterService
+
   ) {
 
   }
@@ -37,7 +37,7 @@ export class FlightListComponent implements OnInit {
     console.log("IN FLIG LIST");
     console.log(JSON.stringify(this.tickets$));
     this.tickets$ = this.ticketService.tickets
-    this.filter$ = this.filterService.filterObj
+    // this.filter$ = this.filterService.filterObj
 
     // @ts-ignore
     // var data = JSON.parse(localStorage.getItem(TICKETLIST));

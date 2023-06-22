@@ -1,0 +1,79 @@
+<div>
+  <div class="headPanel">
+    <!--  style="display: flex; flex-direction: row; align-items: center;  gap: 0.5rem;  "-->
+    <div>
+      <div class="panel">
+
+        <div class=" inputElements rounded-2">
+          <mat-form-field class="item">
+            <mat-label>Откуда</mat-label>
+            <input [ngModel]="fromInput" matInput #from>
+          </mat-form-field>
+        </div>
+
+        <div class=" inputElements rounded-2">
+          <mat-form-field class="item">
+            <mat-label>Куда</mat-label>
+            <input [ngModel]="toInput" matInput #to>
+          </mat-form-field>
+        </div>
+
+        <div class=" inputElements rounded-2">
+          <mat-form-field class="item ">
+            <mat-label>Дата вылета</mat-label>
+            <input matInput [matDatepicker]="ToPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
+                   [(ngModel)]="selectedFromMatDate">
+            <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>
+            <mat-datepicker #ToPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class=" inputElements rounded-2">
+          <mat-form-field class="item">
+            <mat-label>Дата возвращения</mat-label>
+
+            <input matInput [matDatepicker]="FromPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
+                   [(ngModel)]="selectedReturnMatDate">
+            <mat-datepicker-toggle matSuffix [for]="FromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #FromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class=" inputElements rounded-2">
+          <mat-form-field class="item">
+            <mat-label>Количество пасажиров</mat-label>
+            <mat-select [(value)]="numberOfPassangers">
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class=" inputElements rounded-2">
+          <mat-form-field class="item">
+            <mat-label>Класс</mat-label>
+            <mat-select [(value)]="flightClass">
+              <mat-option value="StandardClass">Стандарт</mat-option>
+              <mat-option value="FirstClass">Бизнес</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label checkbox-text" for="flexCheckDefault">
+          Полёт в одну сторону
+        </label>
+      </div>
+    </div>
+
+    <div class=" searchBtn">
+      <button (click)="getFilteredTickets(from,to)" class="btn OnBtn findBtn  p-3">Найти билеты</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+

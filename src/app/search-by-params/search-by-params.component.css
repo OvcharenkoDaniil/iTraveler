@@ -1,0 +1,13 @@
+.action-panel{
+  display: flex;
+  gap: 4rem;
+}
+.cards{
+  display: flex;
+  flex-wrap:wrap;
+  gap: 1rem;
+
+}
+.card-elem{
+
+}

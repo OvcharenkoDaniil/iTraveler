@@ -1,0 +1,27 @@
+<div (click)="SetBaggageValue()" class="additional-card-item  myShadow rounded-3">
+  <div class="row py-3 px-3 elem-container">
+    <div class="">
+<!--      <div class="head-text ">{{maxBaggagePlaces}} ед. зарегистрированного багажа и до {{maxExtraBaggagePlaces}} дополнительных мест</div>-->
+<!--      <div class="additional-text">{{baggageWeight}} кг каждый</div>-->
+      <div class="head-text ">2 ед. зарегистрированного багажа и до 3 дополнительных мест</div>
+      <div class="additional-text">40 кг каждый</div>
+    </div>
+    <div class="additional-bags">
+      <img class="additional-icon " src="assets/icons/3bags.png"/>
+      <div class="additional-text">171 × 119 × 149 cm</div>
+    </div>
+    <div class="radioPrice">
+      <div class="priceBox">
+<!--        <div class="head-text">${{extraBaggagePrice}} </div>-->
+        <div class="head-text">$40 </div>
+        <div class="regular-text">Каждое дополнительное место</div>
+
+      </div>
+
+      <div>
+<!--        <mat-radio-button value="{{multipleBaggage}}"></mat-radio-button>-->
+        <input class="form-check-input" type="radio"  [checked]="isMultipleBaggageChecked.value" id="radioNoLabel1" value="" aria-label="...">
+      </div>
+    </div>
+  </div>
+</div>

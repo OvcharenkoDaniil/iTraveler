@@ -1,0 +1,28 @@
+.filter{
+  flex:0 0 auto;width:16.66666667%;
+}
+.flight-list{
+  flex:0 0 auto;width:58.33333333%;
+}
+.box{
+  display: flex; flex-direction: row;  justify-content: space-between;
+}
+@media (max-width: 992px) {
+  .flight-list {
+    width: 100%;
+    margin-top: 5%;
+  }
+  .filter {
+    width: 100%;
+  }
+.box{
+  flex-direction: column;
+  justify-content: unset;
+}
+  /*.headPanel {*/
+  /*  justify-content: unset;*/
+  /*  flex-direction: column;*/
+  /*  align-items: unset;*/
+  /*}*/
+
+}

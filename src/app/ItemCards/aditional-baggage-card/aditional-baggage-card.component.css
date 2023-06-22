@@ -1,0 +1,19 @@
+.numberInput{
+  width: 35px;
+
+}
+
+.priceBox{
+  display: flex;
+gap: 0.5rem;
+}
+@media (max-width: 992px) {
+  .additional-card-item{
+     height: 250px;
+   }
+  .regular-text{
+    font-size: 13px;
+  }.head-text{
+    font-size: 15px;
+  }
+}

@@ -1,4 +1,5 @@
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { DatePipe } from '@angular/common'
 
 import {Routes,RouterModule} from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,22 +34,31 @@ import { MainDataComponent } from './main-data/main-data.component';
 import { LoginComponent } from './login/login.component';
 
 import {ACCESS_TOKEN_KEY, AuthService} from "./services/auth.service";
-import {UserService} from "./services/user.service";
+import {AccountService} from "./services/account.service";
 import {AlertifyService} from "./services/alertify.service";
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { AccountComponent } from './account/account.component';
 import {MatListModule} from "@angular/material/list";
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { FlightDetailComponent } from './flight/flight-detail/flight-detail.component';
 import {DetailResolverService} from "./flight/flight-detail/detail-resolver.service";
 import {TabsModule} from "ngx-bootstrap/tabs";
 import { LogoutComponent } from './dialog/logout/logout.component';
+import {environment} from "../environments/environment";
+import { TestComponent } from './test/test.component';
+import { HandLuggageCardComponent } from './ItemCards/hand-luggage-card/hand-luggage-card.component';
+import { BaggageCardComponent } from './ItemCards/baggage-card/baggage-card.component';
+import { AditionalBaggageCardComponent } from './ItemCards/aditional-baggage-card/aditional-baggage-card.component';
+import {MatRadioModule} from "@angular/material/radio";
+import { FlightDetailDataComponent } from './flight/flight-detail-data/flight-detail-data.component';
+import { SearchByParamsComponent } from './search-by-params/search-by-params.component';
+import { PlaceCardComponent } from './ItemCards/place-card/place-card.component';
+import { ImgReviewComponent } from './dialog/img-review/img-review.component';
 
 
 export function tokenGetter(){
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
+  return environment.jwtToken;
 }
 
 
@@ -59,7 +69,8 @@ const appRoutes: Routes = [
   {path: 'main', component: MainDataComponent},
   {path: 'login', component: LoginComponent},
   {path: 'account', component: AccountComponent},
-  {path: 'detail/:id',
+  {path: 'search-places', component: SearchByParamsComponent}, //search-by-params
+  {path: 'detail/:obj/:id',
     component: FlightDetailComponent,
     resolve: {detailResolver: DetailResolverService}},
   {path: '**', component: MainDataComponent}
@@ -82,53 +93,63 @@ const appRoutes: Routes = [
      FilterPipe,
      SortPipe,
      AccountComponent,
-     NavBarComponent,
+
      StartPageComponent,
      FlightDetailComponent,
 
      LogoutComponent,
+      TestComponent,
+      HandLuggageCardComponent,
+      BaggageCardComponent,
+      AditionalBaggageCardComponent,
+      FlightDetailDataComponent,
+      SearchByParamsComponent,
+      PlaceCardComponent,
+      ImgReviewComponent,
 
   ],
 
-  imports: [
+    imports: [
 
-    BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
-    BrowserModule,
-    HttpClientModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCheckboxModule,
-    MatSliderModule,
-    MatSelectModule,
-    MatCardModule,
-    MatTabsModule,
-    MatDialogModule,
-    RouterModule.forRoot(appRoutes),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:7138"],
-        disallowedRoutes: []
-      }
-    }),
-    MatListModule,
-    TabsModule
-  ],
+        BrowserAnimationsModule,
+        BsDropdownModule.forRoot(),
+        BrowserModule,
+        HttpClientModule,
+        MatInputModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatCheckboxModule,
+        MatSliderModule,
+        MatSelectModule,
+        MatCardModule,
+        MatTabsModule,
+        MatDialogModule,
+        RouterModule.forRoot(appRoutes),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:7138"],
+                disallowedRoutes: []
+            }
+        }),
+        MatListModule,
+        TabsModule,
+        MatRadioModule
+    ],
   providers: [
     TicketService,
     AlertifyService,
     AuthService,
-    UserService,
+    AccountService,
+    DatePipe,
     DetailResolverService,
     {provide: MAT_DATE_LOCALE, useValue:'ru-RU' }
   ],

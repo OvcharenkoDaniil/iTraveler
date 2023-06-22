@@ -58,9 +58,9 @@
 
 <!--style="max-width: 20%;"-->
 <div class="myShadow">
-  <mat-accordion class="example-headers-align  " multi>
-    <button (click)="filterParams()">filter data</button>
-    <mat-expansion-panel expanded="true">
+  <mat-accordion class="panel" multi>
+
+    <mat-expansion-panel class="panel-el" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Пересадки
@@ -77,7 +77,7 @@
       </div>
     </mat-expansion-panel>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel class="panel-el">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Время в пути
@@ -87,7 +87,7 @@
         <div>Всего</div>
         <div class="  d-flex " style="flex-direction: row;">
           <div class="ps-1">До</div>
-          <div class="ps-1">{{sliderModel}}</div>
+          <div class="ps-1">{{flightDuration}}</div>
           <div class="ps-1">ч.</div>
         </div>
       </div>
@@ -97,10 +97,10 @@
         [displayWith]="formatLabel"
         min="0"
         max="24"
-        aria-label="units" [(ngModel)]="sliderModel" style="width: 100%;"></mat-slider>
+        aria-label="units" [(ngModel)]="flightDuration" style="width: 100%;"></mat-slider>
 
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel class="panel-el">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Цена
@@ -108,11 +108,11 @@
       </mat-expansion-panel-header>
 
       <mat-form-field class="w-75" appearance="fill">
-        <mat-label>Min price</mat-label>
+        <mat-label>Мин. цена</mat-label>
         <input matInput [(ngModel)]="minPrice">
       </mat-form-field>
       <mat-form-field class="w-75" appearance="fill">
-        <mat-label>Max price</mat-label>
+        <mat-label>Макс. цена</mat-label>
         <input matInput [(ngModel)]="maxPrice">
       </mat-form-field>
 

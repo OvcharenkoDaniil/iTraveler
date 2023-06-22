@@ -1,1 +1,11 @@
+.sortBtn{
+  width: 30px;
+  height: 30px;
+}
+.sortBlock{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.2rem;
+}
 

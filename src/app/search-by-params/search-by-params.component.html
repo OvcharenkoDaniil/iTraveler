@@ -1,0 +1,70 @@
+<app-search-nav-bar [showSearchMenu]="false"></app-search-nav-bar>
+<div class="container">
+  <div class="mt-3">
+    <mat-expansion-panel  expanded="true">
+      <mat-expansion-panel-header class=" ">
+        <mat-panel-title class="  ">
+          Варианты отдыха:
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="action-panel">
+
+        <div class="">
+          <div class="head-text mb-2">Географические особенности:</div>
+
+          <div>
+            <mat-checkbox [(ngModel)]="isSea" color="primary">Море</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isMountains" color="primary">Горы</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isOcean" color="primary">Океан</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isIsland" color="primary">Острова</mat-checkbox>
+          </div>
+        </div>
+        <div class="">
+          <div class="head-text mb-2">Занятия:</div>
+          <div>
+            <mat-checkbox [(ngModel)]="isSurfing" color="primary">Сёрфинг</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isArchitecture" color="primary">Памятники архитектуры</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isClub" color="primary">Клубный отдых</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isBeachRest" color="primary">Пляжный отдых</mat-checkbox>
+          </div>
+        </div>
+        <div class="">
+          <div class="head-text mb-2">Целенаправленный туризм:</div>
+          <div>
+            <mat-checkbox [(ngModel)]="isFood" color="primary">Гастрономический туризм</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isSkiResort" color="primary">Горнолыжный курорт</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isHealth" color="primary">Лечебно-оздоровительный курорт</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox [(ngModel)]="isReligious" color="primary">Религиозный туризм</mat-checkbox>
+          </div>
+        </div>
+
+      </div>
+
+    </mat-expansion-panel>
+  </div>
+  <div class="mt-5  cards">
+    <div class=" " *ngFor="let place of places$ | async">
+      <app-place-card [place]="place" class="card-elem"></app-place-card>
+    </div>
+  </div>
+
+</div>
+

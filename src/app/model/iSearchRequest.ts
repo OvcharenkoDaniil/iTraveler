@@ -5,4 +5,5 @@
   DepartureDate: Date;
   ReturnDate: Date;
   FlightClass: string;
+  isOneSide: boolean;
 }

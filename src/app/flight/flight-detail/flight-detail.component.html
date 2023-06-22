@@ -1,299 +1,573 @@
 <div>
   <div>
-
-    <app-nav-bar></app-nav-bar>
+    <app-search-nav-bar></app-search-nav-bar>
   </div>
 
-  <div class="container pt-3">
+  <div class="container pt-3 pb-3">
 
-    <div class="row shadow">
+    <div class="shadow ">
 
-      <div class=" p-0">
-        <div class="tab-panel p-3">
-          <tabset class="member-tabset">
-            <tab heading="Отправление">
-              <h1>Отправление</h1>
-              <div class="row" *ngIf="!isAdmin()">
-                <div class="col-sm-6">
-                  <h2>Отправление</h2>
-                  <div class="heading">
-                    <strong>Страна </strong>
-                    <input type="text" class="form-control"  [readOnly]="read"
-                           value="{{ticket.fwDepartureAirportCountry}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Аэропорт </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwDepartureAirportName}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Город </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwDepartureCity}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwDepartureDate}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" class="form-control" value="{{ticket.fwDepartureTime}}" [readOnly]="read"
-                           >
-                  </div>
 
+      <div class="tab-panel detail-container  ">
+        <tabset class="member-tabset">
+          <tab heading="Отправление">
+            <h1>Отправление</h1>
+            <div class="mt-3">
+              <div class="flex-row">
+                <div class="col-5">
+                  <div>
+                    <img class="placeImg " src="assets/images/Places/{{ticket.fwFlight.arrivalCity}}.jpg"/>
+                  </div>
                 </div>
-                <div class="col-sm-6">
 
-                  <h2>Прибытие</h2>
+                <div class="flex-col flight-box">
+                  <div class="flex-row">
+                    <div class="Aircompany-icon"><img class="placeImg "
+                                                      src="assets/icons/Aircompanies/{{ticket.fwFlight.aircompany_name}}.png"/>
+                    </div>
+                    <div class="flex-col ms-2">
+                      <div class="head-text">{{ticket.fwFlight.aircompany_name}}</div>
+                      <div class="flex-row flight-detail-gap">
+                        <div class="regular-text">{{ticket.fwFlight.flightDuration}}</div>
+                        <div class="regular-text"> в полёте</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flight-data-gap flex-row">
+                    <div class="flex-col flight-data-gap">
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.fwFlight.departureTime}} {{ticket.fwFlight.timeZone}}</div>
+                        <div class="regular-text">{{fwDepartureDate}}</div>
+                      </div>
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.fwFlight.arrivalTime}} {{ticket.fwFlight.timeZone}}</div>
+                        <div class="regular-text">{{fwArrivalDate}}</div>
+                      </div>
+                    </div>
+                    <div class="flex-col flight-data-gap">
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.fwFlight.departureCity}}</div>
+                        <div class="regular-text">{{ticket.fwFlight.departureAirportName}}</div>
+                      </div>
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.fwFlight.arrivalCity}}</div>
+                        <div class="regular-text">{{ticket.fwFlight.arrivalAirportName}}</div>
+                      </div>
+                    </div>
 
-                  <div class="heading">
-                    <strong>Страна </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalAirportCountry}}">
                   </div>
-                  <div class="heading">
-                    <strong>Аэропорт </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalAirportName}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Город </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalCity}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalDate}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwArrivalTime}}">
-                  </div>
-
                 </div>
-                <div class="mt-4">
-                  <div class="heading">
-                    <strong>Название авиакомпании</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwAircompany_name}}">
+
+                <div class="flex-col flight-detail-box">
+                  <div class="head-text">Детали полёта</div>
+                  <div class="flex-col ">
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Количество пассажиров:</div>
+                      <div class="regular-text"> {{ticket.numberOfPassengers}}</div>
+                    </div>
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Класс полёта:</div>
+                      <div class="regular-text"> {{flightClass}}</div>
+                    </div>
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Количество пересадок:</div>
+                      <div class="regular-text"> {{ticket.fwFlight.numberOfTransfers}}</div>
+                    </div>
+                    <div *ngIf="ticket.fwFlight.numberOfTransfers!=0" class="flex-row flight-detail-gap">
+                      <div class="head-text">Город пересадки:</div>
+                      <div class="regular-text"> {{ticket.fwFlight.firstTransferCity}}</div>
+                    </div>
+                    <div *ngIf="ticket.fwFlight.numberOfTransfers!=0" class="flex-row flight-detail-gap">
+                      <div class="head-text">Длительность ожидания:</div>
+                      <div class="regular-text"> {{ticket.fwFlight.firstTransferDuration}}</div>
+                    </div>
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Цена:</div>
+                      <div class="head-text">{{ticket.fwFlight.price}}$</div>
+                    </div>
+
                   </div>
-                  <div class="heading">
-                    <strong>Длительность полёта </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwFlightDuration}}">
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <div class="">
+
+                  <div class="placesBox">
+                    <div class="">
+                      <mat-expansion-panel expanded="false">
+                        <mat-expansion-panel-header class=" ">
+                          <mat-panel-title class="  ">
+                            Схема посадочных мест
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="">
+                          <div class="head-text">{{ticket.fwFlight.planeName}}</div>
+                          <img class="plane-img " src="assets/images/Planes/{{ticket.fwFlight.planeName}}.png"/>
+                          <div class="regular-text">* ряд дополнительных услуг для пассажиров с маленькими детьми </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </div>
+
+                    <div class="places-info-box ">
+                      <div class="col-6 card py-4 px-4  rounded-3 mt-3">
+
+                        <div class=" booking-places ">
+                          <div class="places">
+                            <div class="head-text ">Выбор посадочного места</div>
+                            <div class="heading" [hidden]="isOneSeat">
+                              <strong>1 пассажир: </strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwfirstSeatRow">
+                                <input placeholder="Место" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwfirstSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isTwoSeat">
+                              <strong>2 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwsecondSeatRow">
+                                <input placeholder="Место" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwsecondSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isThreeSeat">
+                              <strong>3 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwthirdSeatRow">
+                                <input placeholder="Место" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwthirdSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isFourSeat">
+                              <strong>4 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwfourthSeatRow">
+                                <input type="text" placeholder="Место" class="form-control seatInput" required
+                                       [(ngModel)]="fwfourthSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isFiveSeat">
+                              <strong>5 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="fwfifthSeatRow">
+                                <input type="text" placeholder="Место" class="form-control seatInput" required
+                                       [(ngModel)]="fwfifthSeat">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            <div class="head-text mb-3">Свободные места</div>
+                            <div class="">
+                              <mat-form-field appearance="fill" class="">
+                                <mat-label>Свободные места</mat-label>
+                                <!-- cdkAutosizeMaxRows="5"-->
+                                <textarea matInput class=""
+                                          cdkTextareaAutosize
+                                          #fwAutosize="cdkTextareaAutosize"
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="12"
+                                          [(ngModel)]=fwFreePlaces
+                                ></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card py-4 px-4  rounded-3 mt-3">
+
+                        <div class="facility-box ">
+                          <div class="head-text">Удобства</div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class=" " style="width: 100%;" src="assets/icons/Facilities/usb.png"/>
+                            </div>
+                            <div>{{this.fwUSB}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/food.png"/>
+                            </div>
+                            <div>{{this.fwFood}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/drink.png"/>
+                            </div>
+                            <div>{{this.fwDrink}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/wifi.png"/>
+                            </div>
+                            <div>{{this.fwWiFi}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/entertainment.png"/>
+                            </div>
+                            <div>{{this.fwEntertainment}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.fwNumberOfTransfers}}">
+                  <div class="baggage-cards">
+                    <div class=" handLuggage-box">
+                      <div class="head-text mt-3">Ручная кладь</div>
+                      <!--                              <div class="regular-text mt-2">Малогабаритный багаж, который можно взять в салон и положить на багажную-->
+                      <!--                                полку или под кресло.-->
+                      <!--                              </div>-->
+                      <div class="additional-text mb-2">Доступно по умолчанию</div>
+                      <app-hand-luggage-card [flightClass]="ticket.flightClass"
+                                             [flight]="ticket.fwFlight"></app-hand-luggage-card>
+                    </div>
+
+                    <div class=" baggage-box">
+                      <div class="head-text mt-3">Багаж</div>
+                      <!--                              <div class="regular-text mt-2">Включает в себя крупные части багажа, которые необходимо сдать на стойке-->
+                      <!--                                регистрации авиакомпании до прохождения проверки безопасности в аэропорту.-->
+                      <!--                              </div>-->
+                      <div class="additional-text ">Выберите один вариант:
+                        <div class="baggages mt-2">
+
+                          <app-baggage-card [isBaggageChecked]="isBaggageChecked" [flightClass]="ticket.flightClass"
+                                            [flight]="ticket.fwFlight"></app-baggage-card>
+                          <app-aditional-baggage-card [isMultipleBaggageChecked]="isMultipleBaggageChecked"
+                                                      [flightClass]="ticket.flightClass"
+                                                      [flight]="ticket.fwFlight"></app-aditional-baggage-card>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="regular-text mt-3">При превышении допустимого веса каждой единицы багажа взимается
+                    плата в
+                    размере ${{ticket.fwFlight.baggageSurchargePrice}} за каждый килограмм веса
+                  </div>
+                  <div class="regular-text mt-1">Максимально допустимый вес
+                    багажа {{ticket.fwFlight.maxBaggageWeight}}
+                    килограмм
+                  </div>
+                  <mat-form-field>
+                    <input matInput placeholder="Общий перевес в кг" [(ngModel)]="fwAdditionalBaggageWeight">
+                  </mat-form-field>
+                  <div *ngIf="this.isMultipleBaggageChecked.value">
+                    <div class="regular-text mt-1">Стоимость каждого дополнительного места багажа:
+                      ${{ticket.fwFlight.extraBaggagePrice}}</div>
+                    <div class="regular-text mt-1">Допускается не
+                      более {{this.ticket.fwFlight.maxExtraBaggagePlacesForPerson}}
+                      мест багажа на один заказ
+                    </div>
+                    <div class="heading">
+                      <mat-form-field>
+                        <input matInput placeholder="Количество дополнительных мест багажа"
+                               [(ngModel)]="fwNumBaggagePlaces">
+                      </mat-form-field>
+                    </div>
                   </div>
                 </div>
 
               </div>
-
-
-
-
-
-
-
-              <form class="row" #changeFwFlightForm='ngForm' (ngSubmit)="ChangeFwFlight(changeFwFlightForm)" *ngIf="isAdmin()">
-                <div class="col-sm-6">
-                  <h2>Отправление</h2>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" name="fwDepartureDate" class="form-control" [readOnly]="read"
-                           [(ngModel)]="ticket.fwDepartureDate">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" name="fwDepartureTime" class="form-control" [(ngModel)]="ticket.fwDepartureTime" [readOnly]="read"
-                    >
-                  </div>
-
-                </div>
-                <div class="col-sm-6">
-                  <h2>Прибытие</h2>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" name="fwArrivalDate" class="form-control" [readOnly]="read"
-                           [(ngModel)]="ticket.fwArrivalDate">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" name="fwArrivalTime" class="form-control" [readOnly]="read"
-                           [(ngModel)]="ticket.fwArrivalTime">
-                  </div>
-                </div>
-                <div class="mt-4">
-
-                  <div class="heading">
-                    <strong>Цена </strong>
-                    <input type="text" class="form-control" name="fwPrice" [readOnly]="read" [(ngModel)]="ticket.fwPrice"
-                           >
-                  </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" name="fwNumberOfTransfers" [readOnly]="read"
-                           [(ngModel)]="ticket.fwNumberOfTransfers">
-                  </div>
-                </div>
-                <button  mat-raised-button color="primary" class="mt-4" type="submit" >
-                  Сохранить изменения
-                </button>
-              </form>
-            </tab>
-            <tab heading="Возвращение">
-              <h1>Возвращение</h1>
-              <div class="row "*ngIf="!isAdmin()">
-                <div class="col-sm-6">
-                  <h2>Отправление</h2>
-                  <div class="heading">
-                    <strong>Страна </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwDepartureAirportCountry}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Аэропорт </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwDepartureAirportName}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Город </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwDepartureCity}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwDepartureDate}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwDepartureTime}}">
-                  </div>
-
-                </div>
-                <div class="col-sm-6">
-
-                  <h2>Прибытие</h2>
-
-                  <div class="heading">
-                    <strong>Страна </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwArrivalAirportCountry}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Аэропорт </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwArrivalAirportName}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Город </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwArrivalCity}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwArrivalDate}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwArrivalTime}}">
-                  </div>
-
-                </div>
-                <div class="mt-4">
-                  <div class="heading">
-                    <strong>Название авиакомпании</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwAircompany_name}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Длительность полёта </strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwFlightDuration}}">
-                  </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read"
-                           value="{{ticket.bwNumberOfTransfers}}">
+            </div>
+          </tab>
+          <tab *ngIf="!ticket.isOneSide" heading="Возвращение">
+            <h1>Возвращение</h1>
+            <div class="mt-3">
+              <div class="flex-row">
+                <div class="col-5">
+                  <div>
+                    <img class="placeImg " src="assets/images/Places/{{ticket.bwFlight.arrivalCity}}.jpg"/>
                   </div>
                 </div>
 
+                <div class="flex-col flight-box">
+                  <div class="flex-row">
+                    <div class="Aircompany-icon"><img class="placeImg "
+                                                      src="assets/icons/Aircompanies/{{ticket.bwFlight.aircompany_name}}.png"/>
+                    </div>
+                    <div class="flex-col ms-2">
+                      <div class="head-text">{{ticket.bwFlight.aircompany_name}}</div>
+                      <div class="flex-row flight-detail-gap">
+                        <div class="regular-text">{{ticket.bwFlight.flightDuration}}</div>
+                        <div class="regular-text"> в полёте</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flight-data-gap flex-row">
+                    <div class="flex-col flight-data-gap">
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.bwFlight.departureTime}} {{ticket.bwFlight.timeZone}}</div>
+                        <div class="regular-text">{{bwDepartureDate}}</div>
+                      </div>
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.bwFlight.arrivalTime}} {{ticket.bwFlight.timeZone}}</div>
+                        <div class="regular-text">{{bwArrivalDate}}</div>
+                      </div>
+                    </div>
+                    <div class="flex-col flight-data-gap">
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.bwFlight.departureCity}}</div>
+                        <div class="regular-text">{{ticket.bwFlight.departureAirportName}}</div>
+                      </div>
+                      <div class="flex-col">
+                        <div class="head-text">{{ticket.bwFlight.arrivalCity}}</div>
+                        <div class="regular-text">{{ticket.bwFlight.arrivalAirportName}}</div>
+                      </div>
+                    </div>
 
+                  </div>
+                </div>
+
+                <div class="flex-col flight-detail-box">
+                  <div class="head-text">Детали полёта</div>
+                  <div class="flex-col ">
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Количество пассажиров:</div>
+                      <div class="regular-text"> {{ticket.numberOfPassengers}}</div>
+                    </div>
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Класс полёта:</div>
+                      <div class="regular-text"> {{flightClass}}</div>
+                    </div>
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Количество пересадок:</div>
+                      <div class="regular-text"> {{ticket.bwFlight.numberOfTransfers}}</div>
+                    </div>
+                    <div *ngIf="ticket.bwFlight.numberOfTransfers!=0" class="flex-row flight-detail-gap">
+                      <div class="head-text">Город пересадки:</div>
+                      <div class="regular-text"> {{ticket.bwFlight.firstTransferCity}}</div>
+                    </div>
+                    <div *ngIf="ticket.bwFlight.numberOfTransfers!=0" class="flex-row flight-detail-gap">
+                      <div class="head-text">Длительность ожидания:</div>
+                      <div class="regular-text"> {{ticket.bwFlight.firstTransferDuration}}</div>
+                    </div>
+                    <div class="flex-row flight-detail-gap">
+                      <div class="head-text">Цена:</div>
+                      <div class="head-text">{{ticket.bwFlight.price}}$</div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
 
+              <div class="mt-4">
+                <div class="">
 
+                  <div class="placesBox">
+                    <div class="">
+                      <mat-expansion-panel expanded="false">
+                        <mat-expansion-panel-header class=" ">
+                          <mat-panel-title class="  ">
+                            Схема посадочных мест
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="">
+                          <div class="head-text">{{ticket.bwFlight.planeName}}</div>
+                          <img class="plane-img " src="assets/images/Planes/{{ticket.bwFlight.planeName}}.png"/>
+                          <div class="regular-text">* ряд дополнительных услуг для пассажиров с маленькими детьми</div>
+                        </div>
+                      </mat-expansion-panel>
+                    </div>
 
+                    <div class="places-info-box ">
+                      <div class="col-6 card py-4 px-4  rounded-3 mt-3">
 
+                        <div class=" booking-places ">
+                          <div class="places">
+                            <div class="head-text ">Выбор посадочного места</div>
+                            <div class="heading" [hidden]="isOneSeat">
+                              <strong>1 пассажир: </strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwfirstSeatRow">
+                                <input placeholder="Место" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwfirstSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isTwoSeat">
+                              <strong>2 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwsecondSeatRow">
+                                <input placeholder="Место" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwsecondSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isThreeSeat">
+                              <strong>3 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwthirdSeatRow">
+                                <input placeholder="Место" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwthirdSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isFourSeat">
+                              <strong>4 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwfourthSeatRow">
+                                <input type="text" placeholder="Место" class="form-control seatInput" required
+                                       [(ngModel)]="bwfourthSeat">
+                              </div>
+                            </div>
+                            <div class="heading" [hidden]="isFiveSeat">
+                              <strong>5 пассажир:</strong>
+                              <div class="seatPicker">
+                                <input placeholder="Ряд" type="text" class="form-control seatInput" required
+                                       [(ngModel)]="bwfifthSeatRow">
+                                <input type="text" placeholder="Место" class="form-control seatInput" required
+                                       [(ngModel)]="bwfifthSeat">
+                              </div>
+                            </div>
+                          </div>
 
+                          <div>
+                            <div class="head-text mb-3">Свободные места</div>
+                            <div class="">
+                              <mat-form-field appearance="fill" class="">
+                                <mat-label>Свободные места</mat-label>
+                                <!-- cdkAutosizeMaxRows="5"-->
+                                <textarea matInput class="textarea-el"
+                                          cdkTextareaAutosize
+                                          #bwAutosize="cdkTextareaAutosize"
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="12"
+                                          [(ngModel)]=bwFreePlaces
+                                ></textarea>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="card py-4 px-4  rounded-3 mt-3">
 
+                        <div class="facility-box ">
+                          <div class="head-text">Удобства</div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class=" " style="width: 100%;" src="assets/icons/Facilities/usb.png"/>
+                            </div>
+                            <div>{{this.bwUSB}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/food.png"/>
+                            </div>
+                            <div>{{this.bwFood}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/drink.png"/>
+                            </div>
+                            <div>{{this.bwDrink}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/wifi.png"/>
+                            </div>
+                            <div>{{this.bwWiFi}}</div>
+                          </div>
+                          <div class="facility-item">
+                            <div class="facility-icon-box">
+                              <img class="facility-icon" src="assets/icons/Facilities/entertainment.png"/>
+                            </div>
+                            <div>{{this.bwEntertainment}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-
-              <form class="row" #changeBwFlightForm='ngForm' (ngSubmit)="ChangeBwFlight(changeBwFlightForm)" *ngIf="isAdmin()">
-                <div class="col-sm-6">
-                  <h2>Отправление</h2>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" name="bwDepartureDate" [readOnly]="read"
-                           [(ngModel)]="ticket.bwDepartureDate ">
                   </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" class="form-control" name="bwDepartureTime"
-                           [(ngModel)]="ticket.bwDepartureTime " [readOnly]="read"
-                    >
+                  <div class="baggage-cards">
+                    <div class=" handLuggage-box">
+                      <div class="head-text mt-3">Ручная кладь</div>
+                      <!--                              <div class="regular-text mt-2">Малогабаритный багаж, который можно взять в салон и положить на багажную-->
+                      <!--                                полку или под кресло.-->
+                      <!--                              </div>-->
+                      <div class="additional-text mb-2">Доступно по умолчанию</div>
+                      <app-hand-luggage-card [flightClass]="ticket.flightClass"
+                                             [flight]="ticket.bwFlight"></app-hand-luggage-card>
+                    </div>
+
+                    <div class=" baggage-box">
+                      <div class="head-text mt-3">Багаж</div>
+                      <!--                              <div class="regular-text mt-2">Включает в себя крупные части багажа, которые необходимо сдать на стойке-->
+                      <!--                                регистрации авиакомпании до прохождения проверки безопасности в аэропорту.-->
+                      <!--                              </div>-->
+                      <div class="additional-text ">Выберите один вариант:
+                        <div class="baggages mt-2">
+
+                          <app-baggage-card [isBaggageChecked]="isBaggageChecked" [flightClass]="ticket.flightClass"
+                                            [flight]="ticket.bwFlight"></app-baggage-card>
+                          <app-aditional-baggage-card [isMultipleBaggageChecked]="isMultipleBaggageChecked"
+                                                      [flightClass]="ticket.flightClass"
+                                                      [flight]="ticket.bwFlight"></app-aditional-baggage-card>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
+                  <div class="regular-text mt-3">При превышении допустимого веса каждой единицы багажа взимается
+                    плата в
+                    размере ${{ticket.bwFlight.baggageSurchargePrice}} за каждый килограмм веса
+                  </div>
+                  <div class="regular-text mt-1">Максимально допустимый вес
+                    багажа {{ticket.bwFlight.maxBaggageWeight}}
+                    килограмм
+                  </div>
+                  <mat-form-field>
+                    <input matInput placeholder="Общий перевес в кг" [(ngModel)]="bwAdditionalBaggageWeight">
+                  </mat-form-field>
+                  <div *ngIf="this.isMultipleBaggageChecked.value">
+                    <div class="regular-text mt-1">Стоимость каждого дополнительного места багажа:
+                      ${{ticket.bwFlight.extraBaggagePrice}}</div>
+                    <div class="regular-text mt-1">Допускается не
+                      более {{this.ticket.bwFlight.maxExtraBaggagePlacesForPerson}}
+                      мест багажа на один заказ
+                    </div>
+                    <div class="heading">
+                      <mat-form-field>
+                        <input matInput placeholder="Количество дополнительных мест багажа"
+                               [(ngModel)]="bwNumBaggagePlaces">
+                      </mat-form-field>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-sm-6">
-                  <h2>Прибытие</h2>
-                  <div class="heading">
-                    <strong>Дата отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read" name="bwArrivalDate"
-                           [(ngModel)]="ticket.bwArrivalDate ">
-                  </div>
-                  <div class="heading">
-                    <strong>Время отправления </strong>
-                    <input type="text" class="form-control" [readOnly]="read" name="bwArrivalTime"
-                           [(ngModel)]="ticket.bwArrivalTime ">
-                  </div>
-                </div>
-                <div class="mt-4">
 
-                  <div class="heading">
-                    <strong>Цена </strong>
-                    <input type="text" class="form-control" [readOnly]="read" name="bwPrice"
-                           [(ngModel)]="ticket.bwPrice ">
-                  </div>
-                  <div class="heading">
-                    <strong>Количество пересадок</strong>
-                    <input type="text" class="form-control" [readOnly]="read" name="bwNumberOfTransfers"
-                           [(ngModel)]="ticket.bwNumberOfTransfers ">
-                  </div>
-                </div>
-                <button  class="mt-4" mat-raised-button color="primary" type="submit" >
-                  Сохранить изменения
-                </button>
-<!--                <div class="btn btn-primary" *ngIf="isAdmin()" (click)="SaveChanges()">-->
-<!--                  Сохранить изменения-->
-<!--                </div>-->
-              </form>
-            </tab>
-<!--            <div class="btn btn-primary"  *ngIf="!isAdmin()" (click)="AddOrder()">-->
-<!--              Забронировать-->
-<!--            </div>-->
-          </tabset>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+        <!--          login-button-->
+        <div class="mt-4">
+          <div class="heading">
+            <div class="head-text">Приблизительна цена билета</div>
+            <input type="text" class="form-control" readOnly [(ngModel)]="totalPrice">
+          </div>
         </div>
+
+        <button [hidden]="!isloggedIn$.value && !isAdmin$.value " mat-raised-button color="primary"
+                (click)="AddOrder()" class="mt-4">
+          Забронировать
+        </button>
+
+<!--        <button [hidden]="!isloggedIn$.value && !isAdmin$.value && this.isOrder" mat-raised-button-->
+<!--                (click)="DeleteOrder()" class="mt-4 bg-danger">-->
+<!--          Отменить-->
+<!--        </button>-->
       </div>
+
     </div>
   </div>
 </div>

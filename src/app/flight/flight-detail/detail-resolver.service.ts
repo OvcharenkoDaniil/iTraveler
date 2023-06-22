@@ -5,6 +5,7 @@ import {TicketService} from "../../services/ticket.service";
 
 import {catchError} from "rxjs/operators";
 import { Observable, of } from 'rxjs';
+import {OrderService} from "../../services/order.service";
 @Injectable({
   providedIn: 'root'
 })
@@ -12,14 +13,21 @@ import { Observable, of } from 'rxjs';
 
 export class DetailResolverService implements Resolve<ITicket> {
 
-  constructor(private router: Router, private ticketService: TicketService) {
+  constructor(private router: Router, private ticketService: TicketService,private orderService: OrderService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<ITicket> | ITicket {
-    const ticketId = route.params['id'];
+    const obj = route.params['obj'];
+    const id = route.params['id'];
     console.log("resolve get ticket")
-    return this.ticketService.getTicket(+ticketId)
+    console.log(obj+'+'+id)
+    if (obj==="order"){
+      console.log("YYYYYYYYYYYESSS")
+      return this.orderService.getOrder(+id);
+    }
+
+    return this.ticketService.getTicket(+id)
       // .pipe(
       // catchError(error => {
       //   this.router.navigate(['/']);

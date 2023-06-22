@@ -1,0 +1,14 @@
+@media (max-width: 992px) {
+  .card-item{
+    height: 250px;
+  }
+  .regular-text{
+    font-size: 13px;
+  }.head-text{
+     font-size: 15px;
+   }
+  .hand-luggage{
+    margin-top: 21%;
+    margin-bottom: 8%;
+  }
+}

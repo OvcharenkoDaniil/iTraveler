@@ -1,5 +1,5 @@
 .home_slider_background{
-  width: 100vw;
+  width: auto;
   height: 100vh;
   background-image: linear-gradient(to right, rgba(53, 10, 78, 0.5),
   rgba(53, 10, 78, 0.5)),url("src/assets/images/home_slider.jpg");
@@ -8,3 +8,39 @@
 
 }
 
+.h1-text{
+  font-size: 3vw;
+  color: white;
+}
+.h2-text{
+  font-size: 1.3vw;
+  color: white;
+}
+
+@media (max-width: 992px){
+  .h1-text {
+    font-size: 3.2vw;
+  }
+  .h2-text{
+    font-size: 1.7vw;
+    color: white;
+  }
+}
+@media (max-width: 768px){
+  .h1-text {
+    font-size: 3.4vw;
+  }
+  .h2-text{
+    font-size: 2vw;
+    color: white;
+  }
+}
+@media (max-width: 560px){
+  .h1-text {
+    font-size: 4.3vw;
+  }
+  .h2-text{
+    font-size: 2.5vw;
+    color: white;
+  }
+}

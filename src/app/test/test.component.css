@@ -1,0 +1,106 @@
+
+.OnBtn:hover {
+  background-color: #364907;
+}
+
+.round-start {
+  border-radius: 10px 0 0 10px;
+}
+
+.round-end {
+  border-radius: 0 10px 10px 0;
+}
+
+.findBtn {
+  font-size: 1.1em;
+  background-color: #4D6D08;
+  color: white;
+
+}
+.checkbox-text{
+  color: white;
+}
+
+.panel {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.inputElements {
+  background-color: white;
+  color: black;
+  padding-right: 1%;
+  padding-left: 1%;
+  width: 170px;
+}
+
+.item {
+  width: 98%;
+}
+
+
+
+.headPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 1400px) {
+  .inputElements {
+    width: 140px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .inputElements {
+    width: 120px;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .inputElements {
+    width: 220px;
+  }
+  .headPanel {
+    justify-content: unset;
+    flex-direction: column;
+    align-items: unset;
+  }
+  .searchBtn {
+    margin-top: 2%;
+    width: 100%;
+
+  }
+  .findBtn{
+    width: 100%;
+
+  }
+}
+@media (max-width: 768px) {
+  .inputElements {
+    width: 254px;
+  }
+  .panel {
+    justify-content: start;
+
+  }
+}
+
+@media (max-width: 560px) {
+  .inputElements {
+    width: 220px;
+  }
+  .inputElements {
+    flex-basis: 100%;
+  }
+  .headPanel {
+    margin-top: 3%;
+  }
+}
+
+
+

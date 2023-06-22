@@ -7,6 +7,8 @@ import {OrderVM} from "../../model/IOrder";
 import {TicketService} from "../../services/ticket.service";
 import {OrderService} from "../../services/order.service";
 import {AlertifyService} from "../../services/alertify.service";
+import {FilterService} from "../../services/filter.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-flight-card',
@@ -30,24 +32,44 @@ export class FlightCardComponent {
       return false;
   }
 
-  user: IUser;
+
+  user$: BehaviorSubject<IUser>;
+  isAdmin$: BehaviorSubject<boolean>;
+  isLoggedIn$: BehaviorSubject<boolean>;
   constructor(private authService:AuthService,
               private orderService: OrderService,
               private alertify: AlertifyService,
+              private filterService: FilterService,
               private ticketService: TicketService) {
   }
-  isAdmin() {
-    return this.authService.isAdmin()
-    // if (this.authService.isAuthenticated()) {
-    //   // @ts-ignore
-    //   this.user = this.authService.getUserData();
-    //   if (this.user.role=='Admin'){
-    //     return true;
-    //   }
-    //
-    // }
-    // return false;
+  ngOnInit(): void {
+    // this.user = this.authService.getUserData();
+    this.user$ = this.authService.User;
+    this.isAdmin$ = this.authService.isAdmin;
+    // console.log("this.isAdmin$----------------------");
+    // console.log(this.isAdmin$.value);
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+    // console.log("this.isLoggedIn$----------------------");
+    // console.log(this.isLoggedIn$);
+    // console.log("TICKEEET");
+    // console.log(this.ticket);
   }
+  // isAdmin() {
+  //   if (this.user === undefined){
+  //     return false;
+  //   }
+  //   if (this.user.role =="Admin"){
+  //     return true;
+  //   }
+  //   else return false;
+  // }
+  // isAuthorized() {
+  //   if (this.user === undefined){
+  //     return false;
+  //   }
+  //   else return true;
+  // }
+
 
   DeleteOrder() {
     // console.log("this.ticket.ticketElem_id")
@@ -56,10 +78,13 @@ export class FlightCardComponent {
       .subscribe(
         response => {
           this.alertify.success('Заказ успешно удалён');
-          this.orderService.getOrders().subscribe(
+          //localStorage.setItem(num)
+          var user:IUser = this.authService.getUserData();
+
+          this.orderService.getOrders(user.email).subscribe(
             response => {
               console.log("response orderService.GetOrders ")
-              console.log(response)
+              //console.log(response)
             }, error => {
               //this.alertify.error('Order does not get');
             }
@@ -70,59 +95,58 @@ export class FlightCardComponent {
       );
   }
 
-  AddOrder() {
+  // AddOrder() {
+  //
+  //   // this.orderVM.ticket_id=7;
+  //   // this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
+  //   // var user:IUser = this.authService.getUserData();
+  //   // this.orderVM.userEmail=user.email;
+  //   // var searchRequest:ISearchRequest = this.ticketService.getFilterData();
+  //   // this.orderVM.FlightClass= searchRequest.FlightClass;
+  //   // this.orderService.AddOrder(this.orderVM)
+  //   //   .subscribe(
+  //   //     response => {
+  //   //       this.alertify.success('Заказ успешно добавлен');
+  //   //       console.log("response orderService.AddOrder ")
+  //   //       console.log(response)
+  //   //     }, error => {
+  //   //       this.alertify.error('Заказ не добавлен');
+  //   //     }
+  //   //   );
+  //
+  //   this.ticketService.AddTicket(this.ticket).subscribe(
+  //     createdTicketId => {
+  //       console.log("response ticketService.AddTicket")
+  //       if (createdTicketId != 0) {
+  //         this.orderVM.ticket_id=createdTicketId;
+  //         this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
+  //         var user:IUser = this.authService.getUserData();
+  //         this.orderVM.userEmail=user.email;
+  //         var searchRequest:ISearchRequest = this.filterService.getsearchRequestData();
+  //         this.orderVM.FlightClass= searchRequest.FlightClass;
+  //
+  //         this.orderService.AddOrder(this.orderVM)
+  //           .subscribe(
+  //             response => {
+  //               this.alertify.success('Заказ успешно добавлен');
+  //             }, error => {
+  //               this.alertify.error('Заказ не добавлен');
+  //             }
+  //           );
+  //       }
+  //     }, error => {
+  //       // this.alertify.error('Tickets does not received');
+  //     }
+  //   );
+  //
+  //
+  // }
 
-    // this.orderVM.ticket_id=7;
-    // this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
-    // var user:IUser = this.authService.getUserData();
-    // this.orderVM.userEmail=user.email;
-    // var searchRequest:ISearchRequest = this.ticketService.getFilterData();
-    // this.orderVM.FlightClass= searchRequest.FlightClass;
-    // this.orderService.AddOrder(this.orderVM)
-    //   .subscribe(
-    //     response => {
-    //       this.alertify.success('Заказ успешно добавлен');
-    //       console.log("response orderService.AddOrder ")
-    //       console.log(response)
-    //     }, error => {
-    //       this.alertify.error('Заказ не добавлен');
-    //     }
-    //   );
-    this.ticketService.AddTicket(this.ticket).subscribe(
-      createdTicketId => {
-        console.log("response ticketService.AddTicket")
-        if (createdTicketId != 0) {
-          this.orderVM.ticket_id=createdTicketId;
-          this.orderVM.numberOfTickets=this.ticket.numberOfPassengers;
-          var user:IUser = this.authService.getUserData();
-          this.orderVM.userEmail=user.email;
-          var searchRequest:ISearchRequest = this.ticketService.getFilterData();
-          this.orderVM.FlightClass= searchRequest.FlightClass;
-
-          this.orderService.AddOrder(this.orderVM)
-            .subscribe(
-              response => {
-                this.alertify.success('Заказ успешно добавлен');
-                //console.log("response sssssssssssssssssssssssssssssssss")
-              }, error => {
-                this.alertify.error('Заказ не добавлен');
-              }
-            );
-        }
-      }, error => {
-        // this.alertify.error('Tickets does not received');
-      }
-    );
+  // isAuthenticated() {
+  //   return this.authService.isAuthenticated();
+  // }
 
 
-  }
-
-  isAuthenticated() {
-    if (this.authService.isAuthenticated()){
-      return true;
-    }
-      return false;
-  }
 
 
 }

@@ -2,23 +2,36 @@
 <!--<input [(ngModel)]='City'>-->
 <!--<button type="button" (click)="onCityFilter()">Search</button>-->
 <!--<button type="button" (click)="onCityFilterClear()">Clear</button> &nbsp;-->
+<div>
 
-<label>Sort by &nbsp;</label>
-<select [(ngModel)] = 'SortbyParam'>
-  <option value="flightDuration">Продолжительность полёта</option>
-  <option value="totalPrice">цена</option>
+  <div class="sortBlock">
+    <label>Сортировать по: &nbsp;</label>
+    <select [(ngModel)]='SortbyParam'>
+      <option value="totalFlightDuration">Продолжительность полёта</option>
+      <option value="totalPrice">цена</option>
 
-</select>
-<button type="button" (click) = "onSortDirection()">
-  <img *ngIf="SortDirection==='asc'" src="assets/icons/sort-up.png" >
-  <img *ngIf="SortDirection==='desc'" src="assets/icons/sort-down.png" >
-</button>
+    </select>
+    <div type="button" (click)="onSortDirection()">
+      <img *ngIf="SortDirection==='asc'" class="sortBtn" src="assets/icons/sort-up.png">
+      <img *ngIf="SortDirection==='desc'" class="sortBtn" src="assets/icons/sort-down.png">
+    </div>
+  </div>
+  <!--| sort:[SortbyParam,SortDirection]-->
+  <div class="row justify-content-center mt-2">
+    <!--  |filter:filter$-->
 
-<!--| sort:[SortbyParam,SortDirection]-->
-<div class="row justify-content-end" >
-<!--  |filter:filter$-->
-  <div *ngFor="let ticket of tickets$ | async |sort:[SortbyParam,SortDirection]"
-       class="myShadow mb-3 rounded-3 " >
-    <app-flight-card [mode]="mode"  [ticket]="ticket"></app-flight-card>
+
+    <!--&lt;!&ndash;  myShadow mb-3 rounded-3&ndash;&gt;-->
+    <!--<div class=" card-el">-->
+    <!--  <app-flight-card [mode]="mode"   ></app-flight-card>-->
+    <!--</div>-->
+
+<!--    <div *ngIf="tickets$== []">-->
+<!--      <label>Билеты не найдены</label>-->
+<!--    </div>-->
+    <div *ngFor="let ticket of tickets$ | async |sort:[SortbyParam,SortDirection]">
+      <!--      <label *ngIf="tickets$."></label>-->
+      <app-flight-card [mode]="mode" [ticket]="ticket"></app-flight-card>
+    </div>
   </div>
 </div>

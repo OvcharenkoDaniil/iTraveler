@@ -4,6 +4,8 @@ import {ISearchRequest} from "../model/iSearchRequest";
 import {TicketService} from "../services/ticket.service";
 import {AlertifyService} from "../services/alertify.service";
 import {Router} from "@angular/router";
+import {FilterService} from "../services/filter.service";
+import {AuthService} from "../services/auth.service";
 
 interface Passanger {
   value: string;
@@ -26,6 +28,7 @@ export class SearchMenuComponent implements OnInit {
   selectedFromMatDate: Date;
   selectedReturnMatDate: Date;
   numberOfPassangers = '1';
+  isOneSide = false;
   flightClass = 'StandardClass';
   fromInput: any;
   toInput: any;
@@ -33,20 +36,30 @@ export class SearchMenuComponent implements OnInit {
 
   constructor(private ticketService: TicketService,
               private alertify: AlertifyService,
-              private router:Router) {
+
+              private filterService: FilterService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log("filter in main");
-    var filter = this.ticketService.getFilterData();
+    console.log("SetDefaultData------------------------");
+
+    var filter = this.filterService.getsearchRequestData();
     console.log(filter);
-    if (filter!= null){
+    // this.fromInput = 'Лондон';
+    // this.toInput = 'Париж';
+    //
+    // this.selectedFromMatDate = new Date("2023-05-19");
+    // this.selectedReturnMatDate = new Date("2023-05-21");
+
+    if (filter != null) {
       this.fromInput = filter.DepartureCity;
       this.toInput = filter.ArrivalCity;
-      this.selectedFromMatDate= filter.DepartureDate;
-      this.selectedReturnMatDate= filter.ReturnDate;
-      this.numberOfPassangers= filter.NumberOfPassangers.toString();
-      this.flightClass= filter.FlightClass;
+      this.selectedFromMatDate = filter.DepartureDate;
+      this.selectedReturnMatDate = filter.ReturnDate;
+      this.numberOfPassangers = filter.NumberOfPassangers.toString();
+      this.flightClass = filter.FlightClass;
+      this.isOneSide = filter.isOneSide;
     }
   }
 
@@ -59,75 +72,66 @@ export class SearchMenuComponent implements OnInit {
   async getFilteredTickets(from: HTMLInputElement, to: HTMLInputElement) {
     try {
 
-      // const obj: ISearchRequest = {
-      //   DepartureCity: from.value,
-      //   ArrivalCity: to.value,
-      //   DepartureDate: this.selectedFromMatDate,
-      //   ReturnDate: this.selectedReturnMatDate,
-      //   NumberOfPassangers: +this.numberOfPassangers,
-      //   FlightClass:this.flightClass
-      // };
-      const obj2: ISearchRequest = {
-        DepartureCity: "AirportCity1",
-        ArrivalCity: "AirportCity2",
+      const filterData: ISearchRequest = {
+        DepartureCity: from.value,
+        ArrivalCity: to.value,
         DepartureDate: this.selectedFromMatDate,
-        ReturnDate: this.selectedFromMatDate,
-        NumberOfPassangers: 2,
-        FlightClass:"FirstClass"
+        ReturnDate: this.selectedReturnMatDate,
+        NumberOfPassangers: +this.numberOfPassangers,
+        isOneSide: this.isOneSide,
+        FlightClass: this.flightClass
       };
-      console.log("obj");
-      console.log(obj2);
-
-      this.ticketService.getFilteredTickets(obj2)
-        .subscribe(
-        response => {
-          // this.alertify.success('Tickets received');
-          if (response!=null){
-            this.router.navigateByUrl("/main");
-          }
-        }, error =>{
-          // this.alertify.error('Tickets does not received');
+      if (!this.isValueEmpty(filterData)) {
+        // console.log("DepartureCity--------");
+        // console.log(filterData.DepartureDate);
+        // console.log(filterData.ReturnDate);
+        // console.log("isOneSide---------");
+        // console.log(filterData.isOneSide);
+        if (filterData.DepartureDate < filterData.ReturnDate && !filterData.isOneSide) {
+          this.getFilteredTicketsData(filterData);
         }
-      );
-
-      //this.searchRequest.emit(obj);
-      // this.searchObj.DepartureCity = from.value;
-      // this.searchObj.ArrivalCity = to.value;
-      // this.searchObj.ArrivalCity = to.value;
-      // this.searchRequest.emit()
-      // const response = await axios.get(this.BASE_URL + this.GET_FLIGHTS);
+        else if(filterData.isOneSide) this.getFilteredTicketsData(filterData);
+        else this.alertify.error("Дата отправления не может быть позже даты прибытия")
+      } else this.alertify.error("Заполните все поля")
     } catch (error) {
       console.error(error);
     }
   }
 
-  // async getFlights() {
-  //   try {
-  //     const response = await axios.get(this.BASE_URL + this.GET_FLIGHTS);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  getFilteredTicketsData(filterData:ISearchRequest){
+    this.ticketService.getFilteredTickets(filterData)
+      .subscribe(
+        response => {
+          console.log("ticketService.getFilteredTickets response")
+          console.log(response)
+          // this.alertify.success('Tickets received');
+          if (response != null) {
+            this.router.navigateByUrl("/main");
+          } else this.alertify.error('Билеты не найдены');
+        }, error => {
+          // this.alertify.error('Tickets does not received');
+        }
+      );
+  }
 
-
-
+  private isValueEmpty(filterData: ISearchRequest) {
+    console.log("filterData.ReturnDate");
+    console.log(filterData.ReturnDate);
+    if (
+      filterData.DepartureCity == null ||
+      filterData.ArrivalCity == null ||
+      filterData.DepartureDate == null ||
+      filterData.FlightClass == null ||
+      filterData.NumberOfPassangers == null
+    ) {
+      if (filterData.isOneSide!=true && filterData.ReturnDate == undefined){
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 }
 
 
-// const actions = {
-//   async GET_ALL_FLIGHTS({commit}) {
-//     try {
-//       await axios.get("https://localhost:7138/api/Flight").then((response) => {
-//         const flights = response.data.data;
-//         if (flights.length === 0) {
-//           alert("Пользователи не найдены");
-//         }
-//         alert(`Количество пользователей "${flights.length}"`);
-//         commit("SET_FLIGHTS", flights);
-//       });
-//     } catch (error) {
-//       console.log("err", error);
-//     }
-//   }
-// }
+

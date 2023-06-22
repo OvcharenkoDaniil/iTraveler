@@ -3,25 +3,39 @@
 <div class="container " style="margin-top: 2rem; ">
   <!--  *ngIf="isLoggedIn"-->
   <div style="display: flex; flex-direction: row;  justify-content: space-between">
-    <div class="col-2  myShadow" style="max-height: 100px;">
+    <div class="col-2  myShadow" style="height: 200px;">
       <mat-action-list>
-        <button mat-list-item (click)="SetItem(profileItem)">Профиль</button>
-        <button mat-list-item (click)="SetItem(orderItem)">Мои заказы</button>
+        <button mat-list-item (click)="SetItem(profileItem)">Аккаунт</button>
+        <button mat-list-item *ngIf="!isAdmin()" (click)="SetItem(orderItem)">Мои заказы</button>
+        <button mat-list-item *ngIf="isAdmin()" (click)="SetItem(orderItem)">Заказы пользователя</button>
+        <button mat-list-item *ngIf="isAdmin()" (click)="SetItem(accountItem)">Пользователи</button>
+<!--        <button mat-list-item *ngIf="isAdmin()" (click)="SetItem(addItem)">Добавить рейс</button>-->
       </mat-action-list>
     </div>
 
-    <div class="col-7 " *ngIf="loggedIn()">
+<!--    *ngIf="loggedIn()"-->
+    <div class="col-7 " >
 
       <mat-card>
         <mat-list *ngIf="activeMenuItem==profileItem">
-          <mat-list-item class="fw-bold">Профиль</mat-list-item>
-          <mat-list-item>Пользователь: {{user.name}}</mat-list-item>
-          <mat-list-item>Email: {{user.email}}</mat-list-item>
+          <mat-list-item class="fw-bold">Аккаунт</mat-list-item>
+          <mat-list-item>Фамилия: {{user.family_name}}</mat-list-item>
+          <mat-list-item>Имя: {{user.name}}</mat-list-item>
+          <mat-list-item>Почта: {{user.email}}</mat-list-item>
+          <mat-list-item>Роль: {{user.role}}</mat-list-item>
+          <mat-list-item>Номер телефона: {{user.phonenumber}}</mat-list-item>
+<!--          <mat-list-item class="fw-bold">Аккаунт</mat-list-item>-->
+<!--          <mat-list-item>Фамилия: Очаренко</mat-list-item>-->
+<!--          <mat-list-item>Имя: Даниил</mat-list-item>-->
+<!--          <mat-list-item>Почта: ывапро</mat-list-item>-->
+<!--          <mat-list-item>Роль: юзер</mat-list-item>-->
+<!--          <mat-list-item>Номер телефона: 3752345678</mat-list-item>-->
 
 
-            <mat-list-item class="fw-bold mt-3">Сменить пароль</mat-list-item>
-          <mat-list-item class="mt-2" >
-            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+          <mat-list-item class="fw-bold mt-3">Сменить пароль</mat-list-item>
+          <mat-list-item class="mt-2">
+            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changePasswordForm"
+                  (ngSubmit)="changePassword()">
               <mat-form-field style="width: 130px;">
                 <input matInput placeholder="Пароль" type="password" formControlName="password">
                 <mat-error
@@ -43,7 +57,7 @@
                 </mat-error>
                 <mat-error
                   *ngIf="!newPassword.valid && (newPassword.touched || userSubmitted) && newPassword.errors?.['minlength']">
-                  длина пароля должна быть не менее 6 символов
+                  длина пароля должна быть не менее 5 символов
                 </mat-error>
                 <mat-icon matSuffix>lock</mat-icon>
 
@@ -60,19 +74,178 @@
               Пароли не совпадают
             </span>
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit" >
+              <button mat-raised-button color="primary" type="submit">
                 Сменить пароль
+              </button>
+            </form>
+          </mat-list-item>
+          <mat-list-item class="fw-bold mt-3">Сменить электронную почту</mat-list-item>
+          <mat-list-item class="mt-2">
+            <form style="display: flex; align-items: center; gap: 2rem;" [formGroup]="changeEmailForm"
+                  (ngSubmit)="changeEmail()">
+              <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="!email.valid && (email.touched || userSubmitted) && email.hasError('required')">
+                  Введите email
+                </mat-error>
+                <mat-error *ngIf="!email.valid && (email.touched || userSubmitted) && email.hasError('email')">
+                  email не валиден
+                </mat-error>
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">
+                Сменить эл. адрес
               </button>
             </form>
           </mat-list-item>
         </mat-list>
 
         <mat-list *ngIf="activeMenuItem==orderItem">
-          <div *ngFor="let order of orders$ | async"
-               class="myShadow mb-3 rounded-3 " >
-            <app-flight-card [mode]="mode" [ticket]="order"></app-flight-card>
+          <div *ngIf="isAdmin()">Selected user Orders:</div>
+          <div *ngFor="let order of orders$ | async">
+            <app-flight-card [mode]="mode"  [ticket]="order"></app-flight-card>
           </div>
         </mat-list>
+
+        <mat-list *ngIf="activeMenuItem==accountItem && isAdmin()">
+          <div *ngFor="let account of accounts$ | async" class="myShadow mb-3 rounded-3 ">
+            <tr>
+              <td class="ps-4 col-2">{{account.email}}</td>
+              <td class="ps-4 col-2">{{account.firstName}}</td>
+<!--              <td class="ps-4 col-2">{{account.secondName}}</td>-->
+              <td class="ps-4 col-2">{{account.role}}</td>
+              <td class="ps-4 col">
+<!--                <div class="btn  " (click)="DeleteAccount(account)">Удалить</div>-->
+                <div class="btn  " (click)="UserOrders(account.email)">Просмотреть заказы</div>
+              </td>
+            </tr>
+          </div>
+        </mat-list>
+
+<!--        <mat-list *ngIf="activeMenuItem==addItem && isAdmin()">-->
+<!--          <mat-accordion class="example-headers-align" multi>-->
+<!--            <mat-expansion-panel>-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  Полёты-->
+<!--                </mat-panel-title>-->
+<!--              </mat-expansion-panel-header>-->
+<!--              <div *ngFor="let plane of planes$ | async" class="myShadow mb-3 rounded-3 ">-->
+<!--                <tr>-->
+<!--                  <td class="ps-4 col-2">{{plane.plane_id}}</td>-->
+<!--                  <td class="ps-4 col-2">{{plane.name}}</td>-->
+<!--                  <td class="ps-4 col-2">{{plane.aircompany_name}}</td>-->
+<!--                  <td class="ps-4 col-2">{{plane.standardClassCapacity}}</td>-->
+<!--                  <td class="ps-4 col-2">{{plane.firstClassCapacity}}</td>-->
+<!--                  <td class="ps-4 col-2">-->
+<!--                    &lt;!&ndash;                    <div class="btn" (click)="AddPlane(plane)">Добавить</div>&ndash;&gt;-->
+<!--                    <div class="btn" (click)="DeletePlane(plane)">Удалить</div>-->
+<!--                    &lt;!&ndash;                    <div class="btn" (click)="EditPlane(plane)">Изменить</div>&ndash;&gt;-->
+<!--                  </td>-->
+<!--                </tr>-->
+<!--              </div>-->
+<!--            </mat-expansion-panel>-->
+<!--            <mat-expansion-panel>-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  Аэропорты-->
+<!--                </mat-panel-title>-->
+<!--              </mat-expansion-panel-header>-->
+
+<!--              <div *ngFor="let airport of airports$ | async" class="myShadow mb-3 rounded-3 ">-->
+<!--                <tr>-->
+<!--                  <td class="ps-4 col-2">{{airport.airport_id}}</td>-->
+<!--                  <td class="ps-4 col-2">{{airport.city}}</td>-->
+<!--                  <td class="ps-4 col-2">{{airport.country}}</td>-->
+<!--                  <td class="ps-4 col-3">{{airport.name}}</td>-->
+<!--                  <td class="ps-4 col-3">-->
+<!--                    <div class="btn" (click)="DeleteAirport(airport)">Удалить</div>-->
+<!--                    &lt;!&ndash;                    <div class="btn" (click)="AddAirport(airport)">Добавить</div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    <div class="btn" (click)="EditAirport(airport)">Изменить</div>&ndash;&gt;-->
+<!--                  </td>-->
+<!--                </tr>-->
+<!--              </div>-->
+<!--            </mat-expansion-panel>-->
+<!--          </mat-accordion>-->
+<!--&lt;!&ndash;          <mat-card-content>&ndash;&gt;-->
+<!--&lt;!&ndash;            <form #addForm='ngForm' (ngSubmit)="addWithForm(addForm)">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="col-sm-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h2>Отправление</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-form-field class="FromPicker">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <mat-label>Дата отправления</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input matInput [matDatepicker]="ToPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"&ndash;&gt;-->
+<!--&lt;!&ndash;                           [(ngModel)]="selectedFromMatDate" name="departureDate" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <mat-datepicker-toggle matSuffix [for]="ToPicker"></mat-datepicker-toggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <mat-datepicker #ToPicker></mat-datepicker>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash;                  <input type="text" name="departureDate" class="form-control" ngModel>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                  </mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Время отправления </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" name="departureTime" required class="form-control" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                  <mat-error *ngIf="!userName.valid && (userName.touched || userSubmitted) && userName.errors?.['required']">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    Введите время отправления&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                  </mat-error>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Идентификатор аэропорта отправления</strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="departureAirport_id" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="col-sm-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h2>Прибытие</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-form-field class="FromPicker">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <mat-label>Дата прибытия</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input matInput [matDatepicker]="FromPicker" min="{{currentDate | date:'yyyy-MM-dd'}}"&ndash;&gt;-->
+<!--&lt;!&ndash;                           [(ngModel)]="selectedReturnMatDate" required name="arrivalDate">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <mat-datepicker-toggle matSuffix [for]="FromPicker"></mat-datepicker-toggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <mat-datepicker #FromPicker></mat-datepicker>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash;                  <input type="text" name="arrivalDate" class="form-control" ngModel>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                  </mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Время прибытия </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" name="arrivalTime" required class="form-control" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Идентификатор аэропорта прибытия</strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="arrivalAirport_id" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="mt-4 col-sm-6">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Цена </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="price" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Идентификатор самолёта </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="plane_id" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Продолжительность полёта </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="flightDuration" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Количество билетов бизнес класса </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="firstClassTicketsLeft" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <strong>Количество билетов стандартного класса </strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input type="text" class="form-control" required name="standardClassTicketsLeft" ngModel>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <button [disabled]="!addForm.valid" mat-raised-button color="primary" class="mt-4" type="submit">&ndash;&gt;-->
+<!--&lt;!&ndash;                Добавить&ndash;&gt;-->
+<!--&lt;!&ndash;              </button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </form>&ndash;&gt;-->
+<!--&lt;!&ndash;          </mat-card-content>&ndash;&gt;-->
+<!--        </mat-list>-->
+
+
       </mat-card>
 
     </div>

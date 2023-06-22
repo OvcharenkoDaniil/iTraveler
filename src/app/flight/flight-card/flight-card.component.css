@@ -6,13 +6,121 @@
   opacity: 8%;
   border-top: 3px solid #000;
 }
+.elem-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.handLuggageBox{
+  justify-content:flex-end;
+  margin-right: 0.3rem;
+}
+.auto-row{
+  display: flex;
+  flex-direction: row;
+  /*margin-top:1.5rem;*/
 
+}
+.auto-col{
+  flex:0 0 auto;width:auto;
+
+}
+.data-box{
+  margin-bottom:2rem;
+}
 .hr-dashed {
 
   border-left: 2px dashed #ddd;
 }
-
+.book-btn{
+  justify-content:center;
+  color: white;
+  margin-top:1.5rem;
+}
+.aditional-btn{
+  display: flex;
+}
+.price{
+  justify-content: center;
+  margin-right:0;
+  font-size:calc(1.3rem + .6vw);
+  font-weight:700;
+  display: flex;
+  flex-direction: row;
+}
 .btn-settings{
   border: 0;
   background: transparent;
+}
+.colmn-3{
+  flex:0 0 auto;
+  width:25%;
+}
+.colmn-9{
+  flex:0 0 auto;
+  width:75%;
+}
+.booking{
+  display: flex;
+  flex-direction: column;
+  margin-top:1.5rem;
+}
+
+@media (max-width: 1200px) {
+  .font-size {
+    font-size: 14px;
+  }
+  .data-box{
+    margin-bottom:1.3rem;
+  }
+}
+@media (max-width: 992px) {
+  .font-size {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .data-box{
+    margin-bottom:0.5rem;
+  }
+  .elem-container{
+    flex-direction: column;
+  }
+  .hr-dashed{
+    border: none;
+  }
+  .booking{
+    justify-content: space-between;
+    margin: unset;
+    flex-direction: row;
+  }
+  .colmn-3{
+    width: 100%;
+  }
+  .colmn-9{
+    width: 100%;
+  }
+  .book-btn{
+    margin-top: unset;
+  }
+}
+
+@media (max-width: 576px) {
+  .font-size {
+    font-size: 13px;
+  }
+  .card-el{
+    max-width: 500px;
+  }
+
+  .booking{
+    flex-direction: column;
+  }
+
+
+.size{
+  font-size: 0px!important;
+}
+
 }

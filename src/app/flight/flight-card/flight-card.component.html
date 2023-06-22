@@ -1,103 +1,109 @@
-<div class="" >
-  <div class="row py-3 px-1">
-    <div class="col-9">
-      <div class="row m-1">
-
-        <div class="row mb-5 ">
-          <div class="row">
-
-            <div class="row ">
-
+<div class="myShadow mb-3 rounded-3  card-el">
+  <div class="row py-3 px-3 elem-container">
+    <div class="colmn-9  ">
+      <div class="row ">
+        <div class=" data-box">
+          <div class="">
+            <div class="auto-row  ">
               <div class="col ">
                 <div class="row justify-content-start">
-                  <div class="col-auto  fw-bold pe-0">Отправление</div>
+                  <div class="col-auto  fw-bold pe-0 font-size">Отправление</div>
                   <div class="col-auto px-1 ">:</div>
-                  <div class="col-auto ps-0">{{ticket.fwAircompany_name}}</div>
+                  <div class="col-auto ps-0 font-size">{{ticket.fwFlight.aircompany_name}}</div>
+                  <!--                  <div class="col-auto ps-0 font-size">aircompany</div>-->
                 </div>
               </div>
-
-              <div class="col">
-                <div class="row justify-content-end">
+              <div class="auto-col ">
+                <div class="row handLuggageBox">
                   <img class="col-auto px-0 align-self-center" height="20" src="assets/icons/suitcase.png"/>
-                  <div class="col-auto ps-2 ">Ручная кладь</div>
+                  <div class="col-auto ps-2 size font-size">Багаж</div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="row pt-3">
-            <img class="col-auto" height="25" src="assets/icons/lufthansa.ico"/>
-            <div class="col-auto">
-              <div class="row fw-bold">{{ticket.fwDepartureTime}}</div>
-              <div class="row pb-0  pb-0 pt-1">{{ticket.fwDepartureAirportName}}</div>
-              <div class="row pt-0  pb-0">{{ticket.fwDepartureCity}}</div>
+          <div class="row  ">
+            <img class="col-auto " height="25" src="assets/icons/Aircompanies/{{ticket.fwFlight.aircompany_name}}.png"/>
+            <div class="col-auto ">
+              <div class="row fw-bold font-size">{{ticket.fwFlight.departureTime}}</div>
+              <div class="row pb-0  pb-0 pt-1 font-size">{{ticket.fwFlight.departureAirportName}}</div>
+              <div class="row pt-0  pb-0 font-size">{{ticket.fwFlight.departureCity}}</div>
+              <!--              <div class="row fw-bold font-size">10:11</div>-->
+              <!--              <div class="row pb-0  pb-0 font-size pt-1">pulkovo</div>-->
+              <!--              <div class="row pt-0  pb-0 font-size">minsk</div>-->
             </div>
-            <div class="col-auto">
+            <div class="col-auto ">
               <div class="row">
 
                 <img class="col-auto px-2  align-self-center" height="22" src="assets/icons/plane.png"/>
-                <div class="col-auto ">{{ticket.fwFlightDuration}}  ч.</div>
-<!--                <div class="col-auto pe-1"> ч.</div>-->
-<!--                <div class="col-auto px-1">{{ticket.fwNumberOfTransfers}}</div>-->
-<!--                <div class="col-auto  ps-0">остановки:</div>-->
+                <div class="col-auto font-size">{{ticket.fwFlight.flightDuration}}  ч.</div>
+                <!--                <div class="col-auto pe-1"> ч.</div>-->
+                <div class="col-auto px-1 font-size">{{ticket.fwFlight.numberOfTransfers}}</div>
+                <div class="col-auto  ps-0 font-size">остановки:</div>
               </div>
             </div>
-            <div class="col-auto">
-              <div class="row fw-bold">{{ticket.fwArrivalTime}}</div>
-              <div class="row pb-0  pb-0 pt-1">{{ticket.fwArrivalAirportName}}</div>
-              <div class="row pb-0">{{ticket.fwArrivalCity}}</div>
+            <div class="col-auto ">
+              <div class="row fw-bold font-size">{{ticket.fwFlight.arrivalTime}}</div>
+              <div class="row pb-0  pb-0 pt-1 font-size">{{ticket.fwFlight.arrivalAirportName}}</div>
+              <div class="row pb-0 font-size">{{ticket.fwFlight.arrivalCity}}</div>
+              <!--              <div class="row fw-bold font-size">14:11</div>-->
+              <!--              <div class="row pb-0 font-size pb-0 pt-1">domodedovo</div>-->
+              <!--              <div class="row pt-0 font-size pb-0">moscow</div>-->
             </div>
           </div>
-
-
         </div>
 
-<!--        <div *ngIf="value()"></div>-->
 
-        <hr>
+        <hr *ngIf="!ticket.isOneSide" class="hr-line">
 
-        <div class="row">
-          <div class="row">
 
-            <div class="row ">
+        <div *ngIf="!ticket.isOneSide" class=" ">
+          <div class="">
+            <div class="auto-row ">
 
               <div class="col ">
                 <div class="row justify-content-start">
-                  <div class="col-auto fw-bold pe-0">Возвращение</div>
+                  <div class="col-auto fw-bold font-size pe-0">Возвращение</div>
                   <div class="col-auto px-1 ">:</div>
-                  <div class="col-auto ps-0">{{ticket.bwAircompany_name}}</div>
+                  <div class="col-auto ps-0 font-size">{{ticket.bwFlight.aircompany_name}}</div>
+                  <!--                  <div class="col-auto ps-0 font-size">lufthansa</div>-->
                 </div>
               </div>
 
-              <div class="col">
-                <div class="row justify-content-end">
+              <div class="auto-col ">
+                <div class="row handLuggageBox">
                   <img class="col-auto px-0 align-self-center" height="20" src="assets/icons/suitcase.png"/>
-                  <div class="col-auto ps-2 ">Ручная кладь</div>
+                  <div class="col-auto ps-2 size font-size">Багаж</div>
                 </div>
               </div>
+
             </div>
           </div>
-
           <div class="row pt-2">
-            <img class="col-auto" height="25" src="assets/icons/lufthansa.ico"/>
+            <img class="col-auto" height="25" src="assets/icons/Aircompanies/{{ticket.fwFlight.aircompany_name}}.png"/>
             <div class="col-auto">
-              <div class="row fw-bold">{{ticket.bwDepartureTime}}</div>
-              <div class="row pb-0  pb-0 pt-1">{{ticket.bwDepartureAirportName}}</div>
-              <div class="row pt-0  pb-0">{{ticket.bwDepartureCity}}</div>
+              <div class="row fw-bold font-size">{{ticket.bwFlight.departureTime}}</div>
+              <div class="row pb-0  pb-0 pt-1 font-size">{{ticket.bwFlight.departureAirportName}}</div>
+              <div class="row pt-0  pb-0 font-size">{{ticket.bwFlight.departureCity}}</div>
+              <!--              <div class="row fw-bold font-size">14:11</div>-->
+              <!--              <div class="row pb-0 font-size pb-0 pt-1">domodedovo</div>-->
+              <!--              <div class="row pt-0 font-size pb-0">moscow</div>-->
             </div>
             <div class="col-auto">
               <div class="row">
 
                 <img class="col-auto px-2 align-self-center" height="22" src="assets/icons/plane.png"/>
-                <div class="col-auto ">{{ticket.bwFlightDuration}} ч.</div>
-<!--                <div class="col-auto px-1">{{ticket.bwNumberOfTransfers}}</div>-->
-<!--                <div class="col-auto  ps-0">остановки:</div>-->
+                <div class="col-auto font-size">{{ticket.bwFlight.flightDuration}} ч.</div>
+                <div class="col-auto px-1 font-size">{{ticket.bwFlight.numberOfTransfers}}</div>
+                <div class="col-auto  ps-0 font-size">остановки:</div>
               </div>
             </div>
             <div class="col-auto">
-              <div class="row fw-bold">{{ticket.bwArrivalTime}}</div>
-              <div class="row pb-0  pb-0 pt-1">{{ticket.bwArrivalAirportName}}</div>
-              <div class="row pb-0">{{ticket.bwArrivalCity}}</div>
+              <div class="row fw-bold font-size">{{ticket.bwFlight.arrivalTime}}</div>
+              <div class="row pb-0 font-size pb-0 pt-1">{{ticket.bwFlight.arrivalAirportName}}</div>
+              <div class="row pb-0 font-size">{{ticket.bwFlight.arrivalCity}}</div>
+              <!--              <div class="row fw-bold font-size">10:11</div>-->
+              <!--              <div class="row pb-0 font-size pb-0 pt-1">pulkovo</div>-->
+              <!--              <div class="row pt-0 font-size pb-0">minsk</div>-->
             </div>
           </div>
 
@@ -106,34 +112,47 @@
 
       </div>
 
-      <div class="row mt-2">
-        <hr class="hr-shadow ">
+
+      <hr class="hr-shadow ">
+
+      <div class="aditional-btn">
+        <button class="  btn-settings" routerLink="/detail/{{mode}}/{{ticket.ticketElem_id}}">
+          Подробнее
+          <img class="col-auto align-self-center px-0 " height=18 src="assets/icons/down_icon.png">
+        </button>
       </div>
-      <button class=" col-auto btn-settings" *ngIf="!isAdmin()&& isTicket()" routerLink="/detail/{{ticket.ticketElem_id}}">
-        Подробнее
-        <img class="col-auto align-self-center px-0 " height=18 src="assets/icons/down_icon.png">
-      </button>
-      <div class="btn  col-auto btn-primary" *ngIf="isAdmin()&&isTicket()" routerLink="/detail/{{ticket.ticketElem_id}}">
-        Изменить
-      </div>
+      <!--      <div class="btn  col-auto btn-primary" *ngIf="isAdmin()&&isTicket()" routerLink="/detail/{{ticket.ticketElem_id}}">-->
+      <!--        Изменить-->
+      <!--      </div>-->
 
 
     </div>
 
-    <div class="col-3 hr-dashed  ">
+    <div class="colmn-3  hr-dashed ">
 
-      <div class="col  mx-0 m-4">
-        <div class="row justify-content-center mx-0 fs-3 fw-bold">
-          <div class="col-auto  px-0"> {{ticket.totalPrice}}</div>
-          <div class="col-auto  px-1 ">   руб.</div>
+      <div class="  booking">
+        <div class="price ">
+          <div class="font-size px-0"> {{ticket.totalPrice}}</div>
+          <!--          <div class=" font-size px-0"> 1000</div>-->
+          <div class=" font-size px-1 "> $</div>
         </div>
-<!--        &&isAuthenticated()-->
-        <div class="row justify-content-center mx-0 mt-4" *ngIf="isTicket()&&!isAdmin()" (click)="AddOrder()">
-          <div class="col-auto btn btn-primary  ">Забронировать</div>
-        </div>
-        <div class="row justify-content-center mx-0 mt-4" *ngIf="isOrder()" (click)="DeleteOrder()">
-          <div class="col-auto btn btn-danger ">Отменить бронирование</div>
-        </div>
+        <!--        &&isAuthenticated()-->
+        <!--        *ngIf="isTicket()&&!isAdmin() && isAuthenticated()" (click)="AddOrder()"-->
+
+
+        <!--        <div class="book-btn" routerLink="/detail/{{ticket.ticketElem_id}}">-->
+        <!--          <div class="w-100 btn btn-primary ">Забронировать</div>-->
+        <!--        </div>-->
+        <!--        [disabled]="!isAuthorized()"-->
+        <button *ngIf="!isAdmin$.value && isTicket() && isLoggedIn$.value" mat-raised-button color="primary"
+                class="book-btn" routerLink="/detail/{{mode}}/{{ticket.ticketElem_id}}">
+          Забронировать
+        </button>
+        <button *ngIf="!isAdmin$.value && isOrder()  && isLoggedIn$.value" mat-raised-button
+                class="book-btn delete-btn bg-danger" (click)="DeleteOrder()">
+          Отменить
+        </button>
+
       </div>
     </div>
   </div>

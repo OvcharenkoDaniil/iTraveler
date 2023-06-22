@@ -1,0 +1,19 @@
+<div (click)="SetBaggageValue()" class="card-item myShadow rounded-3">
+  <div class="row py-3 px-3 elem-container">
+    <div class="">
+<!--      <div class="head-text ">{{maxBaggagePlaces}} ед. зарегистрированного багажа</div>-->
+<!--      <div class="additional-text">{{baggageWeight}} кг</div>-->
+      <div class="head-text ">2 ед. зарегистрированного багажа</div>
+      <div class="additional-text">23 кг</div>
+    </div>
+    <div class="bags">
+      <img class="icon " src="assets/icons/bag1.png"/>
+      <div class="additional-text">171 × 119 × 149 cm</div>
+    </div>
+    <div class="radioPrice">
+      <div class="head-text">$0</div>
+      <div>
+        <input class="form-check-input" type="radio" [checked]="isBaggageChecked.value" id="radioNoLabel1"  value=""  aria-label="...">      </div>
+    </div>
+  </div>
+</div>
